@@ -1,0 +1,27 @@
+@import url('//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+@import url('//fonts.googleapis.com/css?family=Open+Sans');
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+body {
+    background: #fff;
+    color: #333;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    font-size: 13px;
+    line-height: 16px;
+    font-family: "Open Sans", Helvetica, Arial, Verdana, "Sans-serif";
+    box-sizing: border-box;
+}
+table {
+    font-size: 13px;
+}
+a, a:focus, a:hover, a:visited {
+    color: #333;
+}
+.action-btn, .mfp-close {
+    display: none;
+}
+th {
+    text-align: center;
+}

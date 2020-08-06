@@ -1,0 +1,71 @@
+#activmap-wrapper {
+    color: #333;
+    background: #fff;
+}
+#activmap-search,
+#activmap-filters {
+    background: rgba(255, 255, 255, 0.8);
+}
+#activmap-location {
+    color: #555;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+a.activmap-action {
+    color: #fff;
+}
+a.activmap-action#activmap-geolocate {
+    background: #28c7d6;
+    border-color: #28c7d6;
+}
+a.activmap-action#activmap-geolocate:hover {
+    color: #28c7d6;
+}
+a.activmap-action#activmap-reset {
+    background: #555;
+    border-color: #555;
+}
+a.activmap-action#activmap-reset:hover {
+    color: #555;
+}
+a.activmap-action#activmap-target {
+    background: #008CFF;
+    border-color: #008CFF;
+}
+a.activmap-action#activmap-target:hover {
+    color: #008CFF;
+}
+a.activmap-action:hover {
+    background: #fff!important;
+}
+.marker-selector label {
+    color: #555;
+}
+.marker-selector label:hover,
+.marker-selector.active label {
+    color: #28c7d6;
+}
+#activmap-places {
+    background: #fff;
+}
+#activmap-results-num {
+    color: #fff;
+    background: #262626;
+}
+.activmap-place:hover,
+.activmap-place.active {
+    background: #28c7d6;
+    color: #fff;
+}
+h4.activmap-title {
+    color: #28c7d6;
+}
+.activmap-address::before,
+.activmap-phone::before,
+.activmap-url::before {
+    color: #eee;
+    background: #888;
+}
+.activmap-details a {
+    color: #28c7d6;
+}

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module title="[BOOKINGS]" name="booking" multi="0" library="0" dashboard="1" icon="calendar-check" ranking="0" home="0" main="0" validation="0" dates="1" release="0" index="0.1">
+	<!-- resizing
+	[0] 1 single image
+	[1] 1x big, 1x medium, 1x small -->
+	<medias max="0" resizing="1">
+		<big maxw="1920" maxh="1440"/>
+		<medium maxw="600" maxh="600"/>
+		<small maxw="400" maxh="400"/>
+	</medias>
+	<list order="id DESC">
+        <filter label="[STATUS]" name="status">
+            <options>
+                <option value="1">[PENDING]</option>
+                <option value="2">[CANCELLED]</option>
+                <option value="3">[PAYMENT_REJECTED]</option>
+                <option value="4">[CONFIRMED]</option>
+            </options>
+        </filter>
+        <filter label="[HOTEL]" name="id_hotel">
+            <options table="pm_hotel" fieldlabel="id | title" fieldvalue="id" order="title"></options>
+        </filter>
+		<col label="[HOTEL]" name="id_hotel" table="pm_hotel" fieldvalue="title" fieldref="id"/>
+		<col label="[CUSTOMER]" name="lastname firstname"/>
+		<col label="[CHECK_IN]" name="from_date" type="date"/>
+		<col label="[CHECK_OUT]" name="to_date" type="date"/>
+		<col label="[NIGHTS]" name="nights"/>
+		<col label="[ADULTS]" name="adults"/>
+		<col label="[CHILDREN]" name="children"/>
+		<col label="[TOTAL]" name="total" type="price"/>
+		<col label="[STATUS]" name="status" type="case">
+            <values>
+                <value case="1">[PENDING]</value>
+                <value case="2">[CANCELLED]</value>
+                <value case="3">[PAYMENT_REJECTED]</value>
+                <value case="4">[CONFIRMED]</value>
+            </values>
+        </col>
+	</list>
+	<form>
+        <field multi="0" label="[HOTEL]" name="id_hotel" type="select" required="0" unique="0" validation="none">
+            <options table="pm_hotel" fieldlabel="id | title" fieldvalue="id" order="title"></options>
+        </field>
+        <field multi="0" label="[CHECK_IN]" name="from_date" type="date" required="0" unique="0" validation="none"/>
+        <field multi="0" label="[CHECK_OUT]" name="to_date" type="date" required="0" unique="0" validation="none"/>
+        <field multi="0" label="[NIGHTS]" name="nights" type="text" required="0" unique="0" active="0" validation="numeric"/>
+        <field multi="0" label="[ADULTS]" name="adults" type="text" required="0" unique="0" active="0" validation="numeric"/>
+        <field multi="0" label="[CHILDREN]" name="children" type="text" required="0" unique="0" active="0" validation="numeric"/>
+        <field multi="0" label="[DISCOUNT]" name="discount" type="text" required="0" unique="0" validation="numeric" comment="{currency}"/>
+        <field multi="0" label="[DOWN_PAYMENT]" name="down_payment" type="text" required="0" unique="0" validation="numeric" comment="{currency} ([INCL_TAX])"/>
+        <field multi="0" label="[TOTAL_EX_TAX]" name="ex_tax" type="text" required="0" unique="0" active="0" validation="numeric" comment="{currency} ([EX_TAX])"/>
+        <field multi="0" label="[TAX_AMOUNT]" name="tax_amount" type="text" required="0" unique="0" active="0" validation="numeric" comment="{currency}"/>
+        <field multi="0" label="[TOTAL]" name="total" type="text" required="0" unique="0" active="0" validation="numeric" comment="{currency} ([INCL_TAX])"/>
+        <field multi="0" label="[PAID]" name="paid" type="text" required="0" unique="0" active="0" validation="numeric" comment="{currency} ([INCL_TAX])"/>
+        <field multi="0" label="[BALANCE]" name="balance" type="text" required="0" unique="0" active="0" validation="numeric" comment="{currency} ([INCL_TAX])"/>
+        <field multi="0" label="[CUSTOMER]" name="id_user" type="select" required="0" unique="0" validation="none">
+            <options table="pm_user" fieldlabel="lastname firstname - email" fieldvalue="id" order="lastname, firstname, email"></options>
+        </field>
+        <field multi="0" label="[FIRSTNAME]" name="firstname" type="text" required="1" unique="0" validation="none"/>
+        <field multi="0" label="[LASTNAME]" name="lastname" type="text" required="1" unique="0" validation="none"/>
+        <field multi="0" label="[EMAIL]" name="email" type="text" required="1" unique="0" validation="none"/>
+        <field multi="0" label="[COMPANY]" name="company" type="text" required="0" unique="0" validation="none"/>
+        <field multi="0" label="[ADDRESS]" name="address" type="text" required="1" unique="0" validation="none"/>
+        <field multi="0" label="[POSTCODE]" name="postcode" type="text" required="1" unique="0" validation="none"/>
+        <field multi="0" label="[CITY]" name="city" type="text" required="1" unique="0" validation="none"/>
+        <field multi="0" label="[PHONE]" name="phone" type="text" required="1" unique="0" validation="none"/>
+        <field multi="0" label="[MOBILE]" name="mobile" type="text" required="0" unique="0" validation="none"/>
+        <field multi="0" label="[COUNTRY]" name="country" type="text" required="1" unique="0" validation="none">
+            <options table="pm_country" fieldlabel="name" fieldvalue="id" order="name"></options>
+        </field>
+        <field multi="0" label="[COMMENTS]" name="comments" type="textarea" editor="0" required="0" unique="0" validation="none"/>
+        <field multi="0" label="[STATUS]" name="status" type="select" required="1" unique="0" validation="none">
+            <options>
+                <option value="1">[PENDING]</option>
+                <option value="2">[CANCELLED]</option>
+                <option value="3">[PAYMENT_REJECTED]</option>
+                <option value="4">[CONFIRMED]</option>
+            </options>
+        </field>
+		<field multi="0" label="[PAYMENT_OPTION]" name="payment_option" type="select" required="0" unique="0" validation="none">
+			<options>
+				<option value="arrival">[ON_ARRIVAL]</option>
+				<option value="check">[BY_CHECK]</option>
+				<option value="transfer">[BANK_TRANSFER]</option>
+				<option value="paypal">PayPal</option>
+                <option value="2checkout">2Checkout.com</option>
+                <option value="braintree">Braintree</option>
+                <option value="razorpay">Razorpay</option>
+			</options>
+		</field>
+        <table label="[ROOMS]" name="booking_room" fieldref="id_booking">
+            <field multi="0" label="[HOTEL]" name="id_hotel" type="select" required="1" unique="0" validation="none">
+                <options table="pm_hotel" fieldlabel="id | title" fieldvalue="id" order="title"></options>
+            </field>
+            <field multi="0" label="[ROOM]" name="id_room" type="select" required="1" unique="0" validation="none">
+                <options table="pm_room" fieldlabel="id | title" fieldvalue="id" order="title" optfilter="id_hotel" filtername="id_hotel"></options>
+            </field>
+            <field multi="0" label="[ROOM_DESCR]" name="title" type="text" required="1" unique="0" validation="none">
+                <options table="pm_room" fieldlabel="title" fieldvalue="id" order="title"></options>
+            </field>
+            <field multi="0" label="[ADULTS]" name="adults" type="text" required="0" unique="0" validation="numeric"/>
+            <field multi="0" label="[CHILDREN]" name="children" type="text" required="0" unique="0" validation="numeric"/>
+            <field multi="0" label="[NUM]" name="num" type="text" required="0" unique="0" validation="none"/>
+            <field multi="0" label="[TAX_RATE]" name="tax_rate" type="text" required="0" unique="0" validation="numeric" comment="%"/>
+            <field multi="0" label="[AMOUNT]" name="amount" type="text" required="0" unique="0" validation="numeric" comment="{currency} ([INCL_TAX])"/>
+        </table>
+        <table label="[ACTIVITIES]" name="booking_activity" fieldref="id_booking">
+            <field multi="0" label="[TITLE]" name="title" type="text" required="1" unique="0" validation="none">
+                <options table="pm_activity" fieldlabel="title" fieldvalue="id" order="title"></options>
+            </field>
+            <field multi="0" label="[ADULTS]" name="adults" type="text" required="0" unique="0" validation="numeric"/>
+            <field multi="0" label="[CHILDREN]" name="children" type="text" required="0" unique="0" validation="numeric"/>
+            <field multi="0" label="[DURATION]" name="duration" type="text" required="1" unique="0" validation="none"/>
+            <field multi="0" label="[DATE]" name="date" type="datetime" required="1" unique="0" validation="none"/>
+            <field multi="0" label="[TAX_RATE]" name="tax_rate" type="text" required="0" unique="0" validation="numeric" comment="%"/>
+            <field multi="0" label="[AMOUNT]" name="amount" type="text" required="1" unique="0" validation="numeric" comment="{currency} ([INCL_TAX])"/>
+        </table>
+        <table label="[EXTRA_SERVICES]" name="booking_service" fieldref="id_booking">
+            <field multi="0" label="[TITLE]" name="title" type="text" required="1" unique="0" validation="none">
+                <options table="pm_service" fieldlabel="title" fieldvalue="id" order="title"></options>
+            </field>
+            <field multi="0" label="[QUANTITY]" name="qty" type="text" required="1" unique="0" validation="numeric"/>
+            <field multi="0" label="[TAX_RATE]" name="tax_rate" type="text" required="0" unique="0" validation="numeric" comment="%"/>
+            <field multi="0" label="[AMOUNT]" name="amount" type="text" required="1" unique="0" validation="numeric" comment="{currency} ([INCL_TAX])"/>
+        </table>
+        <table label="[TAXES]" name="booking_tax" fieldref="id_booking">
+            <field multi="0" label="[NAME]" name="name" type="text" required="1" unique="0" validation="none">
+                <options table="pm_tax" fieldlabel="name" fieldvalue="id" order="name"></options>
+            </field>
+            <field multi="0" label="[AMOUNT]" name="amount" type="text" required="1" unique="0" validation="numeric" comment="{currency}"/>
+        </table>
+        <table label="[PAYMENTS]" name="booking_payment" fieldref="id_booking">
+            <field multi="0" label="[DESCRIPTION]" name="descr" type="text" required="0" unique="0" validation="none"/>
+            <field multi="0" label="[DATE]" name="date" type="date" required="1" unique="0" validation="none"/>
+            <field multi="0" label="[PAYMENT_METHOD]" name="method" type="select" required="1" unique="0" validation="none">
+                <options>
+                    <option value="card">[CREDIT_CARD]</option>
+                    <option value="cash">[CASH]</option>
+                    <option value="check">[BY_CHECK]</option>
+                    <option value="transfer">[BANK_TRANSFER]</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="2checkout">2Checkout.com</option>
+                    <option value="braintree">Braintree</option>
+					<option value="razorpay">Razorpay</option>
+                </options>
+            </field>
+			<field multi="0" label="[TRANSACTION_ID]" name="trans" type="text" required="0" unique="0" validation="none"/>
+            <field multi="0" label="[AMOUNT]" name="amount" type="text" required="1" unique="0" validation="numeric" comment="{currency} ([INCL_TAX])"/>
+        </table>
+	</form>
+    <roles>
+        <user type="administrator" permissions="all"/>
+        <user type="manager" permissions="view"/>
+        <user type="editor" permissions="view"/>
+        <user type="hotel" permissions="add,edit"/>
+    </roles>
+</module>

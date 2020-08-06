@@ -1,0 +1,20 @@
+@import url('//fonts.googleapis.com/css?family=Open+Sans');
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+body {
+    background: #fff;
+    color: #333;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    font-size: 14px;
+    line-height: 18px;
+    font-family: "Open Sans", Helvetica, Arial, Verdana, "Sans-serif";
+    box-sizing: border-box;
+}
+a, a:focus, a:hover, a:visited {
+    color: #333;
+}
+.print-btn, .mfp-close {
+    display: none;
+}

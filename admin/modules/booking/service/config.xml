@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module title="[SERVICES]" name="service" multi="1" library="0" dashboard="0" icon="thumbs-up" ranking="1" home="0" main="0" validation="1" dates="0" release="0" index="0.5">
+	<!-- resizing
+	[0] 1 single image
+	[1] 1x big, 1x medium, 1x small -->
+	<medias max="0" resizing="1">
+		<big maxw="1920" maxh="1440"/>
+		<medium maxw="600" maxh="600"/>
+		<small maxw="400" maxh="400"/>
+	</medias>
+	<list order="rank">
+		<col label="[TITLE]" name="title" type="none"/>
+		<col label="[PACKAGE]" name="type"/>
+		<col label="[PRICE]" name="price" type="price"/>
+	</list>
+	<form>
+		<field multi="1" label="[TITLE]" name="title" type="text" required="1" unique="0" validation="none"/>
+		<field multi="1" label="[DESCRIPTION]" name="descr" type="textarea" editor="0" required="0" unique="0" validation="none"/>
+		<field multi="1" label="[LONG_DESCRIPTION]" name="long_descr" type="textarea" editor="1" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[PRICE_TYPE]" name="type" type="select" required="1" unique="0" validation="none">
+            <options>
+                <option value="night">Night</option>
+                <option value="person">Person</option>
+                <option value="person-night">Person/night</option>
+                <option value="adult">Adult</option>
+                <option value="adult-night">Adult/night</option>
+                <option value="child">Child</option>
+                <option value="child-night">Child/night</option>
+                <option value="package">Fixed price</option>
+                <option value="qty">Quantity</option>
+                <option value="qty-night">Quantity/night</option>
+                <option value="qty-person-night">Quantity/person/night</option>
+                <option value="qty-adult-night">Quantity/adult/night</option>
+                <option value="qty-child-night">Quantity/child/night</option>
+            </options>
+        </field>
+        <field multi="0" label="[PRICE]" name="price" type="text" required="1" unique="0" validation="numeric" comment="{currency} ([INCL_TAX])"/>
+		<field multi="0" label="[INCLUDED_TAX]" name="id_tax" type="select" required="0" unique="0" validation="none" comment="[INCLUDED_TAX_NOTICE]">
+			<options table="pm_tax" fieldlabel="name - value" fieldvalue="id" order="rank"/>
+		</field>
+		<field multi="0" label="[ADDED_TAXES]" name="taxes" type="multiselect" required="0" unique="0" validation="none" comment="[ADDED_TAXES_NOTICE]">
+			<options table="pm_tax" fieldlabel="name - value" fieldvalue="id" order="rank"/>
+		</field>
+		<field multi="0" label="[MANDATORY]" name="mandatory" type="radio" required="1" unique="0" validation="none">
+            <options>
+                <option value="1">[YES_OPTION]</option>
+                <option value="0">[NO_OPTION]</option>
+            </options>
+        </field>
+        <field multi="0" label="[START_DATE]" name="start_date" type="date" required="0" unique="0" validation="none"/>
+        <field multi="0" label="[END_DATE]" name="end_date" type="date" required="0" unique="0" validation="none"/>
+        <field multi="0" label="[ROOM]" name="rooms" type="multiselect" required="0" unique="0" validation="none">
+			<options table="pm_room" fieldlabel="title" fieldvalue="id" order="title"/>
+		</field>
+	</form>
+    <roles>
+        <user type="administrator" permissions="all"/>
+        <user type="manager" permissions="no_access"/>
+        <user type="editor" permissions="no_access"/>
+        <user type="hotel" permissions="add,edit,upload"/>
+    </roles>
+</module>

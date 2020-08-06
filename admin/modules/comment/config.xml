@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module title="[COMMENTS]" name="comment" multi="0" library="0" dashboard="1" icon="comment" ranking="0" home="0" main="0" validation="1" dates="1" release="0" index="2.1">
+	<!-- resizing
+	[0] 1 single image
+	[1] 1x big, 1x medium, 1x small -->
+	<medias max="0" resizing="1">
+		<big maxw="1920" maxh="1440"/>
+		<medium maxw="600" maxh="600"/>
+		<small maxw="400" maxh="400"/>
+	</medias>
+	<list order="add_date DESC">
+		<col label="[NAME]" name="name" type="none"/>
+		<col label="[EMAIL]" name="email" type="none"/>
+		<col label="[MESSAGE]" name="msg" type="none"/>
+	</list>
+	<form>
+		<field multi="1" label="[NAME]" name="name" type="text" required="1" unique="0" validation="none"/>
+		<field multi="1" label="[EMAIL]" name="email" type="text" required="1" unique="0" validation="none"/>
+		<field multi="1" label="[MESSAGE]" name="msg" type="textarea" editor="0" required="0" unique="0" validation="none"/>
+        <field multi="0" label="[ITEM_TYPE]" name="item_type" type="select" required="1" unique="0" validation="none">
+			<options>
+                <option value="article">Article</option>
+                <option value="page">Page</option>
+                <option value="hotel">Hotel</option>
+                <option value="activity">Activity</option>
+            </options>
+		</field>
+		<field multi="0" label="[ITEM_ID]" name="id_item" type="text" required="1" unique="0" validation="numeric"/>
+		<field multi="0" label="[RATING]" name="rating" type="text" required="0" unique="0" validation="numeric"/>
+	</form>
+    <roles>
+        <user type="administrator" permissions="all"/>
+        <user type="manager" permissions="edit,delete,publish"/>
+        <user type="editor" permissions="no_access"/>
+    </roles>
+</module>

@@ -1,0 +1,65 @@
+#activmap-wrapper {
+    color: #ccc;
+    background: #333;
+}
+#activmap-search,
+#activmap-filters {
+    background: rgba(23, 23, 23, 0.8);
+}
+#activmap-location {
+    color: #fff;
+    background: #555;
+    border: 1px solid #666;
+}
+a.activmap-action {
+    color: #fff;
+}
+a.activmap-action#activmap-geolocate {
+    background: #EF374C;
+    border-color: #EF374C;
+}
+a.activmap-action#activmap-reset {
+    background: #555;
+    border-color: #555;
+}
+a.activmap-action#activmap-target {
+    background: #008CFF;
+    border-color: #008CFF;
+}
+a.activmap-action:hover {
+    background: #666!important;
+    border-color: #666!important;
+    color: #fff!important;
+}
+.marker-selector label {
+    color: #ccc;
+}
+.marker-selector label:hover,
+.marker-selector.active label {
+    background: #EF374C;
+    color: #fff;
+}
+#activmap-places {
+    background: #333;
+}
+#activmap-results-num {
+    color: #fff;
+    background: #262626;
+}
+.activmap-place:hover,
+.activmap-place.active {
+    background: #EF374C;
+    color: #fff;
+}
+h4.activmap-title {
+    color: #EF374C;
+}
+.activmap-address::before,
+.activmap-phone::before,
+.activmap-url::before {
+    color: #eee;
+    background: #888;
+}
+.activmap-details a {
+    color: #EF374C;
+}

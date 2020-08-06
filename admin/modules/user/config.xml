@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module title="[USERS]" name="user" multi="0" library="0" dashboard="0" icon="user" ranking="0" home="0" main="0" validation="1" dates="1" release="0" index="3.8">
+	<!-- resizing
+	[0] 1 single image
+	[1] 1x big, 1x medium, 1x small -->
+	<medias max="0" resizing="1">
+		<big maxw="1920" maxh="1440"/>
+		<medium maxw="600" maxh="600"/>
+		<small maxw="400" maxh="400"/>
+	</medias>
+	<list order="id">
+		<col label="[FIRSTNAME]" name="firstname" type="none"/>
+		<col label="[LASTNAME]" name="lastname" type="none"/>
+		<col label="[EMAIL]" name="email" type="none"/>
+		<col label="[LOGIN]" name="login" type="none"/>
+		<col label="[TYPE]" name="type" type="none"/>
+	</list>
+	<form>
+		<field multi="0" label="[FIRSTNAME]" name="firstname" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[LASTNAME]" name="lastname" type="text" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[EMAIL]" name="email" type="text" required="1" unique="1" validation="none"/>
+		<field multi="0" label="[LOGIN]" name="login" type="text" required="1" unique="1" validation="none"/>
+		<field multi="0" label="[PASSWORD]" name="pass" type="password" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[TYPE]" name="type" type="select" required="1" unique="0" validation="none">
+            <options>
+                <option value="administrator">administrator</option>
+                <option value="manager">manager</option>
+                <option value="editor">editor</option>
+                <option value="registered">registered</option>
+                <option value="hotel">hotel</option>
+            </options>
+        </field>
+		<field multi="0" label="[ADDRESS]" name="address" type="textarea" editor="0" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[POSTCODE]" name="postcode" type="text" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[CITY]" name="city" type="text" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[COMPANY]" name="company" type="text" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[COUNTRY]" name="country" type="text" required="0" unique="0" validation="none">
+			<options table="pm_country" fieldlabel="name" fieldvalue="id"/>
+		</field>
+		<field multi="0" label="[MOBILE]" name="mobile" type="text" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[PHONE]" name="phone" type="text" required="0" unique="0" validation="none"/>
+	</form>
+    <roles>
+        <user type="administrator" permissions="all"/>
+        <user type="manager" permissions="no_access"/>
+        <user type="editor" permissions="no_access"/>
+    </roles>
+</module>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module title="[EMAILS_CONTENT]" name="email_content" multi="1" library="0" dashboard="0" icon="envelope-square" ranking="0" home="0" main="0" validation="0" dates="0" release="0" index="3.1">
+	<!-- resizing
+	[0] 1 single image
+	[1] 1x big, 1x medium, 1x small -->
+	<medias max="0" resizing="1">
+		<big maxw="1024" maxh="768"/>
+		<medium maxw="400" maxh="300"/>
+		<small maxw="200" maxh="150"/>
+	</medias>
+	<list order="id DESC">
+		<col label="[NAME]" name="name" type="none"/>
+		<col label="[SUBJECT]" name="subject" type="none"/>
+	</list>
+	<form>
+		<field multi="0" label="[NAME]" name="name" type="text" required="1" unique="0" validation="none" roles="administrator"/>
+		<field multi="1" label="[SUBJECT]" name="subject" type="text" required="1" unique="0" validation="none"/>
+		<field multi="1" label="[CONTENT]" name="content" type="textarea" editor="1" required="1" unique="0" validation="none"/>
+	</form>
+    <roles>
+        <user type="administrator" permissions="all"/>
+        <user type="manager" permissions="edit"/>
+        <user type="editor" permissions="no_access"/>
+    </roles>
+</module>

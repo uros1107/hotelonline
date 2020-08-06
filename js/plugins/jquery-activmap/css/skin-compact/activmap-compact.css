@@ -1,0 +1,307 @@
+/* Activ'Map Plugin
+ * Copyright (c) 2015-2017 Pandao
+ * Documentation : https://activmap.pandao.eu/doc
+ */
+#activmap-wrapper * {
+    box-sizing: border-box;
+}
+#activmap-wrapper {
+    width: auto;
+    overflow: hidden;
+    position: relative;
+    font-family: "Montserrat", Helvetica, Arial, Sans-serif;
+}
+#activmap-container,
+#activmap-canvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    float: right;
+    height: 750px;
+}
+#activmap-ui-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+#activmap-search, #activmap-filters {
+    float: left;
+    min-height: 88px;
+    height: auto;
+    margin-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+@media (max-width: 1199px) {
+    #activmap-ui-wrapper {
+        position: relative;
+        width: 100%;
+        top: auto;
+        left: auto;
+    }
+    #activmap-search, #activmap-filters {
+        margin: 0;
+        background: transparent!important;
+    }
+}
+@media (max-width: 767px) {
+    #activmap-search, #activmap-filters {
+        margin: 0;
+        width: 100%;
+    }
+}
+#activmap-search {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#activmap-filters {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#activmap-location {
+    display: inline-block;
+    height: 46px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42;
+    vertical-align: middle;
+    margin-right: -4px;
+    width: 50%;
+}
+a.activmap-action {
+    display: inline-block;
+    height: 46px;
+    width: 16.666%;
+    line-height: 46px;
+    font-size: 26px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid;
+    cursor: pointer;
+    background-image: none;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-right: -4px;
+}
+a.activmap-action:hover {
+    text-decoration: none;
+}
+.marker-selector {
+    height: 66px;
+    width: 88px;
+    padding: 0 5px;
+    float: left;
+    display: table;
+}
+#activmap-filters .marker-selector:first-child{
+    border: none;
+}
+input[name="marker_type[]"] {
+    display: none;
+}
+.marker-selector label {
+    height: 100%;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.marker-selector label svg {
+    display: block;
+    font-size: 26px;
+    width: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+#activmap-places {
+    position: absolute;
+    left: -320px;
+    z-index: 10;
+    height: 100%;
+    width: 320px;
+    overflow: auto;
+}
+@media(max-width:1366px){
+    .marker-selector {
+        width: 75px;
+        padding: 0 4px;
+    }
+    .marker-selector label {
+        font-size: 11px;
+        font-weight: 400;
+    }
+}
+@media(max-width:1190px){
+    #activmap-places, #activmap-container {
+        position: relative;
+        float: none!important;
+        left: 0!important;
+        right: auto!important;
+        width: 100%!important;
+        height: 200px!important;
+    }
+    .marker-selector {
+        height: 60px;
+    }
+    .marker-selector label .fa {
+        font-size: 22px;
+    }
+}
+@media(max-width: 767px){
+    .marker-selector {
+        width: 11.111%;
+    }
+}
+@media(max-width: 703px){
+    .marker-selector {
+        width: 12.5%;
+    }
+}
+@media(max-width: 615px){
+    .marker-selector {
+        width: 16.666%;
+    }
+}
+@media(max-width: 467px){
+    .marker-selector {
+        width: 20%;
+    }
+}
+@media(max-width: 409px){
+    .marker-selector {
+        width: 33.333%;
+    }
+}
+@media(min-width:1191px){
+    #activmap-places {
+        display: block!important;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+}
+#activmap-results-num {
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin: 0 0 1px 0;
+    padding: 20px;
+}
+.activmap-place {
+    display: none;
+    padding: 10px;
+    margin: 0 0 1px 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.activmap-place h3 {
+    font-size: 18px;
+    letter-spacing: -1px;
+    margin: 0 0 10px 0;
+    font-weight: 400;
+}
+.activmap-place h3:before {
+    font-family: "Font Awesome 5 Free";
+    content: '';
+    margin-right: 10px;
+    font-weight: 900;
+}
+/* INFO WINDOW */
+.gm-style-iw,
+.gm-style-iw > div,
+.gm-style-iw > div > div {
+    overflow: visible!important;
+}
+.activmap-infowindow {
+    font-size: 14px;
+    height: 213px;
+    width: 600px;
+    overflow: visible;
+    position: relative;
+    max-width: 100%;
+    color: #333;
+}
+.activmap-brand {
+    height: 225px;
+    width: 294px;
+    position: absolute;
+    top: -12px;
+    overflow: hidden!important;
+    left: -12px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    max-width: 100%;
+}
+.activmap-brand img {
+    max-height: 100%;
+/*
+    max-width: 100%!important;
+*/
+}
+.activmap-details {
+    width: 300px;
+    padding: 15px;
+    margin-left: 300px;
+    max-width: 100%;
+}
+@media(max-width: 768px){
+    .activmap-infowindow {
+        height: auto;
+        width: auto;
+        max-width: 300px;
+    }
+    .activmap-brand {
+        height: auto;
+        position: static;
+    }
+    .activmap-details {
+        margin: 0;
+        width: auto;
+    }
+}
+h4.activmap-title {
+    font-size: 20px;
+    margin: 0 0 20px 0;
+}
+.activmap-address,
+.activmap-phone,
+.activmap-custom,
+.activmap-url {
+    margin-bottom: 10px;
+    padding-left: 30px;
+    line-height: 20px;
+    position: relative;
+    display: block;
+}
+.activmap-phone {
+    font-weight: 600;
+    font-size: 15px;
+}
+.activmap-address::before, .activmap-phone::before, .activmap-url::before {
+    position: absolute;
+    left: 0;
+    top: -2px;
+    font-family: "Font Awesome 5 Free";
+    font-size: 14px;
+    width: 24px;
+    height: 24px;
+    color: #eee;
+    text-align: center;
+    padding: 6px;
+    border-radius: 12px;
+    background: #888;
+    line-height: 12px;
+    font-weight: 900;
+}
+.activmap-address::before {
+    content: '\f041';
+}
+.activmap-phone::before {
+    content: '\f095';
+}
+.activmap-url::before {
+    content: '\f0c1';
+}

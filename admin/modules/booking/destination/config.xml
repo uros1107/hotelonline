@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module title="[DESTINATIONS]" name="destination" multi="1" library="0" dashboard="0" icon="plane" ranking="1" home="1" main="0" validation="1" dates="0" release="0" index="0.92">
+	<!-- resizing
+	[0] 1 single image
+	[1] 1x big, 1x medium, 1x small -->
+	<medias max="10" resizing="1">
+		<big maxw="1920" maxh="1440"/>
+		<medium maxw="600" maxh="600"/>
+		<small maxw="400" maxh="400"/>
+	</medias>
+	<list order="rank">
+		<col label="[NAME]" name="name" type="none"/>
+		<col label="[MAIN_TEXT]" name="text" type="none"/>
+	</list>
+	<form>
+		<field multi="1" label="[NAME]" name="name" type="text" required="1" unique="0" validation="none"/>
+		<field multi="1" label="[TITLE]" name="title" type="text" required="1" unique="0" validation="none" comment="[PAGE_TITLE_NOTICE]"/>
+		<field multi="1" label="[SUBTITLE]" name="subtitle" type="text" required="0" unique="0" validation="none"/>
+		<field multi="1" label="[TITLE_TAG]" name="title_tag" type="text" required="1" unique="0" validation="none" comment="[TITLE_TAG_NOTICE]"/>
+		<field multi="1" label="[ALIAS]" name="alias" type="alias" required="0" unique="1" validation="none" comment="[PAGE_ALIAS_NOTICE]"/>
+		<field multi="1" label="[MAIN_TEXT]" name="text" type="textarea" editor="1" required="0" unique="0" validation="none"/>
+		<field multi="1" label="[VIDEO_URL]" name="video" type="text" required="0" unique="0" validation="none" comment="[VIDEO_URL_NOTICE]"/>
+		<field multi="0" label="[LATITUDE]" name="lat" type="text" required="1" unique="0" validation="numeric"/>
+		<field multi="0" label="[LONGITUDE]" name="lng" type="text" required="1" unique="0" validation="numeric"/>
+		<field multi="1" label="[DESCRIPTION]" name="descr" type="textarea" required="0" unique="0" validation="none" comment="[DESCRIPTION_NOTICE]"/>
+	</form>
+    <roles>
+        <user type="administrator" permissions="all"/>
+        <user type="manager" permissions="no_access"/>
+        <user type="editor" permissions="no_access"/>
+    </roles>
+</module>
