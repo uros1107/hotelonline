@@ -38,6 +38,54 @@ if($db !== false && isset($_POST['login'])){
         $_SESSION['msg_error'][] = $texts['BAD_TOKEN2'];
 }
 
+if($db != false && isset($_POST['create'])){
+    $action = 'create';
+    $create_email = htmlentities($_POST['create_email'], ENT_COMPAT, 'UTF-8');
+    $create_name = $_POST['create_name'];
+    $create_pass = $_POST['create_pass'];
+    $create_confirm_pass = $_POST['create_confirm_pass'];
+    if($create_confirm_pass && $create_pass && $create_email && $create_name)
+    {
+        if( $create_pass == $create_confirm_pass )
+        {
+            $result_user = $db->query('SELECT * FROM pm_user WHERE login='.$db->quote($create_name).'');
+            if($result_user !== false && $db->last_row_count() > 0)
+            {
+                $_SESSION['msg_error'][] = "Name is already exist";
+            }
+            else{
+                $result_user = $db->query('SELECT * FROM pm_user WHERE email='.$db->quote($create_email).'');
+                if($result_user !== false && $db->last_row_count() > 0)
+                {
+                    $_SESSION['msg_error'][] = "Email is already taken";
+                }
+                else{
+                    $result_user = $db->query('SELECT * FROM pm_user WHERE pass='.$db->quote(md5($create_pass)).'');
+                    if($result_user !== false && $db->last_row_count() > 0)
+                    {
+                        $_SESSION['msg_error'][] = "Password is already taken";
+                    }
+                    else{
+                        $query = $db->query('INSERT INTO pm_user (login, email, pass) VALUES('.$db->quote($create_name).', '.$db->quote($create_email).', '.$db->quote(md5($create_pass)).')');
+                        if($query)
+                        {
+                            // $action = 'login';
+                            header('Location: login.php');
+                        }
+                        // $action = 'login';
+                    }
+                }
+            }
+                
+        }else{
+            $_SESSION['msg_error'][] = $texts['CONFIRM_ERROR'];
+        }
+    }else{
+        $_SESSION['msg_error'][] = "All fields are required";
+    }
+    
+}
+
 if($db !== false && isset($_POST['reset'])){
     
     if(defined('DEMO') && DEMO == 1)
@@ -88,9 +136,64 @@ $csrf_token = get_token('login'); ?>
                         <div class="alert alert-danger alert-dismissable"></div>
                     </div>
                     <?php
+                    if($action == 'create'){ ?>
+                        <div class="row mb10">
+                            <div class="col-sm-12 text-left">
+                                <h4 style="font-weight: bold; margin-left: 5px">Sign Up</h4>
+                            </div>
+                        </div>
+                        <div class="row mb10">
+                            <label class="col-sm-3 text-left" style="margin-top: 6px">
+                                *Name
+                            </label>
+                            <div class="col-sm-9 text-left">
+                                <input class="form-control" type="text" value="" name="create_name" id="create_name">
+                            </div>
+                        </div>
+                        <div class="row mb10">
+                            <label class="col-sm-3 text-left" style="margin-top: 6px">
+                                *Email
+                            </label>
+                            <div class="col-sm-9 text-left">
+                                <input class="form-control" type="email" value="" name="create_email" id="create_email">
+                            </div>
+                        </div>
+                        <div class="row mb10">
+                            <label class="col-sm-3 text-left" style="margin-top: 6px">
+                                *Password
+                            </label>
+                            <div class="col-sm-9 text-left">
+                                <input class="form-control" type="password" value="" name="create_pass" id="create_pass">
+                            </div>
+                        </div>  
+                        <div class="row mb10">
+                            <label class="col-sm-3 text-left" style="margin-top: 6px">
+                                *Confirm Password
+                            </label>
+                            <div class="col-sm-9 text-left">
+                                <input class="form-control" type="password" value="" name="create_confirm_pass" id="create_confirm_pass">
+                            </div>
+                        </div>  
+                        <div class="row mb10">
+                            <label class="col-sm-3 text-left" style="margin-top: 6px">
+                            </label>
+                            <div class="col-sm-9 text-left">
+                                <input type="checkbox" style="float:left" id="terms">
+                                <p style="margin-left:20px"> I agree to the <a href="#" >Terms of Use</a> an</p>
+                            </div>
+                        </div> 
+                        <div class="row mb10">
+                        
+                            <div class="col-sm-9 pull-right">
+                                <button class="btn btn-success" type="submit" value="" name="create" id="signup" disabled style="width:50%"><i class="fa fa-sign-in"></i>Sign Up</button>
+                                <a href="#" style="text-decoration: underline;cursor:pointer">Learn more</a>
+                            </div>
+                        </div> 
+                    <?php }
+                    else{
                     if($action == 'reset'){ ?>                        
                         <div class="row mb10">
-                            <label class="col-sm-3 text-center" style="margin-top: 10px">
+                            <label class="col-sm-3 text-center" style="margin-top: 20px">
                                 E-mail:
                             </label>
                             <div class="col-sm-9">
@@ -106,7 +209,9 @@ $csrf_token = get_token('login'); ?>
                             </div>
                         </div>
                         <?php
-                    }else{
+                    }
+
+                    else{
 						if(defined('DEMO') && DEMO == 1) echo '<div class="alert alert-info text-center">DEMO &nbsp;&nbsp; <i class="fa fa-fw fa-user"></i> <i>admin</i>&nbsp; | &nbsp;<i class="fa fa-fw fa-lock"></i> <i>admin123</i></div>'; ?>                        
                         <div class="row mb10">
                             <div class="col-sm-12 text-left">
@@ -143,7 +248,9 @@ $csrf_token = get_token('login'); ?>
                         <!-- <div class="row mb15"><a class="open-signup-form" href="#"><?php echo $texts['I_SIGN_UP'];?></a></div> -->
                         <div class="row mb10">                            
                             <div class="col-sm-12 text-right" style="padding-right: 25px">
-                                <button class="btn btn-default" type="submit" value="" name="login" style="width: 50%"><i class="fas fa-fw fa-power-off"></i> <?php echo $texts['LOGIN']; ?></button>
+                                <a href="login.php?action=create" >Create new account?</a>
+                                <button class="btn btn-default" type="submit" value="" name="login" style="width: 50%"><i class="fas fa-fw fa-power-off"></i><?php echo $texts['LOGIN']; ?></button>
+                                
                             </div>
                         </div>
                         <div class="row" style="padding: 10px 10px 3px 10px;">
@@ -170,12 +277,41 @@ $csrf_token = get_token('login'); ?>
                             </div>
                         </div>
                         <?php
-                    } ?>
+                    } 
+                }?>
                 </div>
             </div>
             <div class="col-sm-3 col-md-4"></div>
         </form>
     </div>
+    <script>
+        $(document).ready(function() {
+            $("#terms").on("click", function(){
+                if($("#terms").is(':checked'))
+                {
+                    $("#signup").attr("disabled", false);
+                }else
+                $("#signup").attr("disabled", true);
+            });
+            
+           
+            // $("#signup").on("click", function() {
+            //     var create_name = $("#create_name").val();
+            //     var create_email = $("#create_email").val();
+            //     var create_pass = $("#create_pass").val();
+            //     var create_confirm_pass = $("#create_confirm_pass").val();
+               
+            //     if(create_name && create_email && create_pass && create_confirm_pass)
+            //     {
+                    
+            //     }
+            //     else{
+                    
+                    
+            //     }
+            // });
+        });
+    </script>
 </body>
 </html>
 <?php
