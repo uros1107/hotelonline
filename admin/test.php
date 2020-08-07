@@ -1,3 +1,3 @@
 <?php 
-    echo ("hello every one");
+    echo ("hello");
 ?>
