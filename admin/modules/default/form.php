@@ -306,12 +306,6 @@ if($db !== false){
                             
                         $result_insert = db_prepareInsert($db, 'pm_'.MODULE, $data);
                         $sub = strval(MODULE);
-                        
-                        // var_export($result_insert);
-
-                        // $data_message = array(MODULE, "Your room has been booked without guarantee.", 1);
-                        // $result_message = db_prepareInsert($db, 'pm_notification', $data_message);
-                        // var_export($result_message);
                         $conn2 = mysqli_connect("localhost", "root", "", "hotel-manager");
                         // Check connection
                         if ($conn2->connect_error) {
@@ -324,12 +318,9 @@ if($db !== false){
                         } else {
                         echo "Error: " . $sql2 . "<br>" . $conn2->error;
                         }
-                        $conn2->close();
-
+                        $conn2->close(); 
                         
                         add_item($db, MODULE, $result_insert, $id_lang);
-                        // var_export(add_item($db, MODULE, $result_insert, $id_lang));
-                        // add_item($db, MDUDLE, $result_message, $id_lang);
 
                     }elseif($action == 'edit' && (in_array('edit', $permissions) || in_array('all', $permissions))){
                         
@@ -343,13 +334,10 @@ if($db !== false){
                             if($db->last_row_count() > 0){
                                     
                                 $result_update = db_prepareUpdate($db, 'pm_'.MODULE, $data);
-                                // $data_message = array(MODULE, "Your room has been updated without guarantee.", 1);
-                                // $result_message = db_prepareUpdate($db, 'pm_notifications', $data_message);
+                                
                                 edit_item($db, MODULE, $result_update, $id, $id_lang);
                             }else{
                                 $result_insert = db_prepareInsert($db, 'pm_'.MODULE, $data);
-                                // $data_message = array(MODULE, "Your room has been booked without guarantee.", 1);
-                                // $result_message = db_prepareInsert($db, 'pm_notifications', $data_message);
                                 
                                 add_item($db, MODULE, $result_insert, $id_lang);
                             }

@@ -189,6 +189,15 @@ textarea.form-control {
     opacity: 1;
 }
 
+.dropdown-menu {
+    text-align: center;
+}
+
+.user-account {
+    text-align: left;
+    padding: 15px;
+}
+
 .top-nav>.open>.dropdown-menu {
     float: left;
     position: absolute;
@@ -307,6 +316,19 @@ ul.alert-dropdown {
 
 .dropdown-toggle {
     width: 250px;
+}
+
+.dropdown-item {
+    color: black !important;
+}
+
+.dropdown-menu {
+    right: 0 !important;
+    left: inherit !important;
+}
+
+.language {
+    display: none !important;    
 }
 
 @media(max-width:768px) {
