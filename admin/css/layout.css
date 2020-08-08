@@ -156,8 +156,14 @@ textarea.form-control {
     z-index: 10;
 }
 .navbar-header {
-    width: 100%;
-    background-color: #b1ca12;
+    /* width: 100%;
+    background-color: #b1ca12; */
+    background: rgb(9,241,244);
+    background: radial-gradient(circle, rgba(9,241,244,1) 0%, rgba(45,108,253,0.9360119047619048) 100%);
+    width:100%;
+}
+.pop-menu:hover {
+    background-color:skyblue;
 }
 .top-nav {
     padding: 0 15px;
