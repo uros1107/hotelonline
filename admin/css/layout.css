@@ -307,7 +307,7 @@ ul.alert-dropdown {
 }
 
 .logo {
-    width: 175px;
+    width: 122px;
     height: 80px;
     position: absolute;
     top: 5px;
@@ -327,9 +327,7 @@ ul.alert-dropdown {
     left: inherit !important;
 }
 
-.language {
-    display: none !important;    
-}
+
 
 @media(max-width:768px) {
     .logo {
