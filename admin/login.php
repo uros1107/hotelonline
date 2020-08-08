@@ -136,11 +136,7 @@ $csrf_token = get_token('login'); ?>
                         <div class="alert alert-danger alert-dismissable"></div>
                     </div>
                     <?php
-<<<<<<< HEAD
                     if($action == 'create'){ ?>
-=======
-                    if($action == 'create'){ ?>                        
->>>>>>> 630eca72b41b908e4854ea961b64d507941704b6
                         <div class="row mb10">
                             <div class="col-sm-12 text-left">
                                 <h4 style="font-weight: bold; margin-left: 5px">Sign Up</h4>
