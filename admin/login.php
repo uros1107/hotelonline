@@ -220,7 +220,7 @@ $csrf_token = get_token('login'); ?>
                         </div>
                         <div class="row mb10">
                             <label class="col-sm-3 text-left" style="margin-top: 6px">
-                                <?php echo ($texts['USERNAME'] . ":"); ?>
+                                <?php echo ($texts['FIRSTNAME'] . ":"); ?>
                             </label>
                             <div class="col-sm-9 text-left">
                                 <input class="form-control" type="text" value="" name="user">
