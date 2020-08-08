@@ -33,8 +33,20 @@
                     </a>
 
                     <div class="dropdown-menu language" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" id="lang_spa" href="#" style='text-align: center; border-right: 1px solid'>Spanish</a>
-                        <a class="dropdown-item" id="lang_eng" href="#">English</a>                        
+                        <table style="width:100%">
+                            <tr class="pop-menu">
+                                <td style="height:unset;text-align:left;padding-left:5px">
+                                    <img src="./images/Mexico.png">
+                                    <a class="dropdown-item" id="lang_spa" href="#">Spanish</a>
+                                </td>
+                            </tr>
+                            <tr class="pop-menu">
+                                <td style="height:unset;text-align:left;padding-left:5px">
+                                    <img src="./images/US.png" style="width:16px">
+                                    <a class="dropdown-item" id="lang_eng" href="#">English(US)</a>
+                                </td>
+                            </tr>
+                        </table>                        
                     </div>
                 </div>
                 <div class="dropdown" id="notification">
@@ -166,30 +178,21 @@
                 data : 0,
                 success: function(response)
                 {
-                // alert(response);
+                    // alert(response);
                 }
             });
         
     });    
     document.getElementById("lang_spa").onclick = function() {
-        var element_es = document.body.querySelector("option[value='es.ini']");
-        var element_en = document.body.querySelector("option[value='en.ini']");
-        console.log(element_es);
-        console.log(element_en);
-        element_es.setAttribute("selected", "selected");
-        element_en.removeAttribute("selected");
-        console.log(element_es);
-        console.log(element_en);
+        <?php $config_tmp['admin_lang_file'] = "es.ini";?>
+        console.log("<?php echo $config_tmp['admin_lang_file'];?>");
+        location.reload();
     };
 
     document.getElementById("lang_eng").onclick = function() {
-        var element_es = document.body.querySelector("option[value='es.ini']");
-        var element_en = document.body.querySelector("option[value='en.ini']");
-        console.log(element_es);
-        console.log(element_en);
-        element_en.setAttribute("selected", "selected");
-        element_es.removeAttribute("selected");
-        console.log(element_es);
-        console.log(element_en);
+        <?php $config_tmp['admin_lang_file'] = "en.ini";?>
+        console.log("<?php echo $config_tmp['admin_lang_file'];?>");
+        location.reload();
     };
+   
 </script>
