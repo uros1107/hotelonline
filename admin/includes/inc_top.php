@@ -12,23 +12,21 @@
             <img class="logo" src="./images/logo-admin.png">
         </a>
         <div class="pull-right hidden-xs" id="info-header">
-            <div class="row mb10"><i class="fas fa-fw fa-phone" style="font-size: 21px"></i><b>: +52 123456789</b></div>
-            <div class="row">
-                <!-- <?php echo "<b>".$_SESSION['user']['login']."</b> (".$_SESSION['user']['type'].")"; ?> -->
-                                <?php
-                    $user_id = $_SESSION['user']['id'];
-                    $servername = "localhost";
-                    $username = "root";
-                    $password = "";
-                    $dbname = "hotel-manager";
+            <?php
+                    $user_id = $_SESSION['user']['id'];   
+                    $user_phone = "SELECT address, city, country, phone FROM pm_user WHERE id=$user_id";
+                    $result1 = $db->query($user_phone);
                     
-                    // Create connection
-                    $conn1 = mysqli_connect($servername, $username, $password, $dbname);
-                    // Check connection
-                    if (!$conn1) {
-                        die("Connection failed: " . mysqli_connect_error());
-                    }                            
-                ?>                
+                    if ($db->last_row_count() > 0) {
+                        while($row_user = $result1->fetch()) {
+                        echo "<div class='row mb10'><i class='fas fa-fw fa-phone' style='font-size: 21px'></i><b>: " .$row_user['phone']. "</b></div>";
+                        }
+                    } else {
+                        echo "0 results";
+                    }                                          
+            ?>  
+            <div class="row">
+                <!-- <?php echo "<b>".$_SESSION['user']['login']."</b> (".$_SESSION['user']['type'].")"; ?> -->              
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-globe-americas dropbtn" style="font-size: 21px"></i>
@@ -45,12 +43,12 @@
                     </a>
                     <?php
                         $sql3 = "SELECT message FROM pm_notification WHERE status=1";
-                        $result2 = mysqli_query($conn1, $sql3);
+                        $result2 = $db->query($sql3);
                         
-                        if (mysqli_num_rows($result2) > 0) {
-                            echo "<small class='notification' id='notification_number'>". mysqli_num_rows($result2) ."</small>";
+                        if ($db->last_row_count() > 0) {
+                            echo "<small class='notification' id='notification_number'>". $db->last_row_count() ."</small>";
                             echo "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
-                            while($row_user = $result2->fetch_assoc()) {                             
+                            while($row_user = $result2->fetch()) {                             
                             echo "<a href='#' class='dropdown-item dropdown-toggle' data-toggle='dropdown' style='text-align: center'>
                                     <span class='label label-pill label-danger count' style='border-radius:10px;'></span> 
                                     <p style='border-bottom: 1px solid'>" .$row_user['message'].                                         
@@ -73,11 +71,10 @@
                         <a class="dropdown-item" data-toggle="modal" data-target="#myModal">My account&nbsp;</a><br>                    
                         <?php    
                             $sql1 = "SELECT address, city, country, phone FROM pm_user WHERE id=$user_id";
-                            $result1 = mysqli_query($conn1, $sql1);
+                            $result1 = $db->query($sql1);
                             
-                            if (mysqli_num_rows($result1) > 0) {
-                              // output data of each row
-                              while($row_user = mysqli_fetch_assoc($result1)) {
+                            if ($db->last_row_count() > 0) {
+                              while($row_user = $result1->fetch()) {
                                 // echo "<a href='#' class='dropdown-item' > address: " .$row_user['address']. "</a><br>";
                                 // echo "<a href='#' class='dropdown-item' > city: " .$row_user['city']. "</a><br>";
                                 // echo "<a href='#' class='dropdown-item' > country: " .$row_user['country']. "</a><br>";
@@ -86,8 +83,6 @@
                             } else {
                               echo "0 results";
                             }
-                            
-                            mysqli_close($conn1);
                         ?>                                                                   
                         <a href="<?php echo DOCBASE.ADMIN_FOLDER; ?>/login.php?action=logout" class="dropdown-item"><i class="fas fa-fw fa-power-off dropbtn"></i> <?php echo $texts['LOG_OUT']; ?></a>                                                
                     </div> 

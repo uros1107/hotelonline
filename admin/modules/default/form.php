@@ -306,19 +306,8 @@ if($db !== false){
                             
                         $result_insert = db_prepareInsert($db, 'pm_'.MODULE, $data);
                         $sub = strval(MODULE);
-                        $conn2 = mysqli_connect("localhost", "root", "", "hotel-manager");
-                        // Check connection
-                        if ($conn2->connect_error) {
-                            die("Connection failed: " . $conn2->connect_error);
-                        }
 
-                        $sql2 = "INSERT INTO pm_notification (subject, message, status) VALUES ('MODULE', 'Your room has been booked without guarantee', 1)";
-                        if ($conn2->multi_query($sql2) === TRUE) {
-                            // echo "New records created successfully";
-                        } else {
-                        echo "Error: " . $sql2 . "<br>" . $conn2->error;
-                        }
-                        $conn2->close(); 
+                        $sql2 = $db->query("INSERT INTO pm_notification (subject, message, status) VALUES ('MODULE', 'Your room has been booked without guarantee', 1)");
                         
                         add_item($db, MODULE, $result_insert, $id_lang);
 
