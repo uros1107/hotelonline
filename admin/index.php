@@ -115,7 +115,7 @@ require_once("includes/fn_module.php"); ?>
             </div>
         </div>
     </div>
-       <!-- Start of LiveChat (www.livechatinc.com) code -->
+<!-- Start of LiveChat (www.livechatinc.com) code -->
 <script>
     window.__lc = window.__lc || {};
     window.__lc.license = 12123444;

@@ -15,17 +15,17 @@
         </a>
         <div class="pull-right hidden-xs" id="info-header">
             <?php
-                    $user_id = $_SESSION['user']['id'];   
-                    $user_phone = "SELECT address, city, country, phone FROM pm_user WHERE id=$user_id";
-                    $result1 = $db->query($user_phone);
-                    
-                    if ($db->last_row_count() > 0) {
-                        while($row_user = $result1->fetch()) {
-                        echo "<div class='row mb10'><i class='fas fa-fw fa-phone' style='font-size: 21px'></i><b>: " .$row_user['phone']. "</b></div>";
-                        }
-                    } else {
-                        echo "0 results";
-                    }                                          
+                $user_id = $_SESSION['user']['id'];   
+                $user_phone = "SELECT address, city, country, phone FROM pm_user WHERE id=$user_id";
+                $result1 = $db->query($user_phone);
+                
+                if ($db->last_row_count() > 0) {
+                    while($row_user = $result1->fetch()) {
+                    echo "<div class='row mb10'><i class='fas fa-fw fa-phone' style='font-size: 21px'></i><b>: " .$row_user['phone']. "</b></div>";
+                    }
+                } else {
+                    echo "0 results";
+                }                                          
             ?>  
             <div class="row">                              
                 <div class="dropdown">
@@ -36,7 +36,7 @@
                     <div class="dropdown-menu language" aria-labelledby="dropdownMenuLink">
                         <table style="width:100%">
                             <tr class="pop-menu">
-                                <td style="height:unset;text-align:left;padding-left:5px">
+                                <td style="height:unset;text-align:left;padding-left:5px;<?php if($_SESSION['CHANGE_LANG']=='es.ini'){?>background-color:#37aede;<?php }?>" id="lang_spa">
                                     <img src="./images/Mexico.png">
                                     <a class="dropdown-item" id="lang_spa" href="#">Spanish</a>
                                 </td>
@@ -50,26 +50,26 @@
                         </table>                        
                     </div>
                 </div>
-                <div class="dropdown" id="notification">
+                <div class="dropdown" id="notification" >
                     <a class="dropdown-toggle" href="#" onclick="removeday()"role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                    
                         <i class="far fa-fw fa-bell dropbtn" style="font-size: 21px"></i>
                     </a>
-                    <?php                    
+                    <?php
                         $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
                         // Check connection
                         if (!$conn) {
-                          die("Connection failed: " . mysqli_connect_error());
+                            die("Connection failed: " . mysqli_connect_error());
                         }
-                        $sql3 = "SELECT message FROM pm_notification WHERE status=1";
-                        $result2 = mysqli_query($conn, $sql3);
+                        $sql3 = "SELECT message FROM pm_notification WHERE status !=0";
+                        $result2 = $db->query($sql3);
                         
-                        if (mysqli_num_rows($result2) > 0) {
-                            echo "<small class='notification' id='notification_number'>". mysqli_num_rows($result2) ."</small>";
-                            echo "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
-                            while($row_user = mysqli_fetch_assoc($result2)) {                             
-                            echo "<a href='#' class='dropdown-item dropdown-toggle' data-toggle='dropdown' style='text-align: center'>
+                        if ($db->last_row_count() > 0) {
+                            echo "<small class='notification' id='notification_number'>". $db->last_row_count() ."</small>";
+                            echo "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink' style='width:200px'>";
+                            while($row_user = $result2->fetch()) {                             
+                            echo "<a href='#' class='dropdown-item dropdown-toggle' data-toggle='dropdown' style='text-aligh:left'>
                                     <span class='label label-pill label-danger count' style='border-radius:10px;'></span> 
-                                    <p style='border-bottom: 1px solid'>" .$row_user['message'].                                         
+                                    <p style='border-bottom: 1px solid;text-align:left;padding-left:10px'>" .$row_user['message'].                                         
                                 "</p></a>";                            
                             }
                             echo "</div>";
@@ -246,7 +246,7 @@
             }
         ?>
 
-        <form method="post" action="" enctype="multipart/form-data" id="myform">        
+        <form method="post" action="" enctype="multipart/form-data">        
             <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
                 <div class="col-sm-9">
                     <input type="file" id="file" name="file" />
@@ -269,38 +269,25 @@
 </div>
 
 <script>
-    $(document).ready(function(){
-
-        $("#file").change(function(){
-
-            var fd = new FormData();
-            var files = $('#file')[0].files[0];
-            fd.append('file',files);
-
-            $.ajax({
-                url: '<?php echo DOCBASE.ADMIN_FOLDER; ?>/includes/upload.php',
-                type: 'post',
-                data: fd,
-                contentType: false,
-                processData: false,
-                success: function(response){
-                    if(response != 0){                        
-                        var res = response.split(" ").join("");
-                        $("#img").attr("src", '<?php echo DOCBASE.ADMIN_FOLDER;?>' + '/includes/' + res);
-                        $("#img-icon").attr("src", '<?php echo DOCBASE.ADMIN_FOLDER;?>' + '/includes/' + res);
-                        $("#image-user").attr("src", '<?php echo DOCBASE.ADMIN_FOLDER;?>' + '/includes/' + res); 
-                        $(".preview img").show(); // Display image element
-                    }else{
-                        alert('file not uploaded');
-                    }
-                },
-            });
-        });
+    jQuery(document).ready(function() {
+        interval = setInterval("checkNewUpdate()", 4000);
     });
 
+    function checkNewUpdate() {
+        $.ajax({
+            url: '<?php echo DOCBASE.ADMIN_FOLDER; ?>/includes/check_notification.php',
+            type : "POST",
+            asynchronous : true,
+            dataType : 'json',
+            success: function(response)
+            {        
+                // // var data = JSON.parse(response);
+                // alert(response[1].message);
+            }
+        });      
+    }
+
     $("#notification").click(function(){
-        
-        console.log($("#notification_number").text());
         $("#notification_number").text(0);
         var flag = 0;
 
@@ -317,6 +304,62 @@
         });        
     });
 
+    $("#lang_spa").on("click", function() {
+        $.ajax({
+            url: '<?php echo DOCBASE.ADMIN_FOLDER;?>/includes/change_lang.php',
+            type:'post',
+            data: {
+                lang : 'es.ini',
+                check_id : 1
+            },
+            success: function(res){
+               location.reload();
+            }
+
+        });
+    });
+    
+    $("#lang_eng").on("click", function() {
+        $.ajax({
+            url: '<?php echo DOCBASE.ADMIN_FOLDER;?>/includes/change_lang.php',
+            type:'post',
+            data: {
+                lang : 'en.ini',
+                check_id : 2
+            },
+            success: function(res){
+               location.reload();
+            }
+
+        });
+    });
+
+    $("#file").change(function(){
+
+        var fd = new FormData();
+        var files = $('#file')[0].files[0];
+        fd.append('file',files);
+
+        $.ajax({
+            url: '<?php echo DOCBASE.ADMIN_FOLDER; ?>/includes/upload.php',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                if(response != 0){                        
+                    var res = response.split(" ").join("");
+                    $("#img").attr("src", '<?php echo DOCBASE.ADMIN_FOLDER;?>' + '/includes/' + res);
+                    $("#img-icon").attr("src", '<?php echo DOCBASE.ADMIN_FOLDER;?>' + '/includes/' + res);
+                    $("#image-user").attr("src", '<?php echo DOCBASE.ADMIN_FOLDER;?>' + '/includes/' + res); 
+                    $(".preview img").show(); // Display image element
+                }else{
+                    alert('file not uploaded');
+                }
+            },
+        });
+    });
+    
     $("#btn-save").click(function(){
         
         console.log($("#user-id").val());
