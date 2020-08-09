@@ -30,6 +30,7 @@ if($db !== false && isset($_POST['login'])){
             $_SESSION['user']['email'] = $row['email'];
             $_SESSION['user']['type'] = $row['type'];
             $_SESSION['user']['add_date'] = $row['add_date'];
+            $_SESSION['IMAGE_PROFILE'] = $row['name'];            
             header('Location: index.php');
             exit();
         }else

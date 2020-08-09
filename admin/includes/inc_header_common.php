@@ -30,6 +30,7 @@ if(defined('TEMPLATE')){ ?>
 <script src="<?php echo DOCBASE; ?>common/js/custom.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
+
 <script>
     $(function(){
         <?php

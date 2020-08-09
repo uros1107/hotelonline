@@ -27,8 +27,7 @@
                         echo "0 results";
                     }                                          
             ?>  
-            <div class="row">
-                <!-- <?php echo "<b>".$_SESSION['user']['login']."</b> (".$_SESSION['user']['type'].")"; ?> -->              
+            <div class="row">                              
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-globe-americas dropbtn" style="font-size: 21px"></i>
@@ -55,8 +54,7 @@
                     <a class="dropdown-toggle" href="#" onclick="removeday()"role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                    
                         <i class="far fa-fw fa-bell dropbtn" style="font-size: 21px"></i>
                     </a>
-                    <?php
-                        // require_once("../../common/config.php");
+                    <?php                    
                         $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
                         // Check connection
                         if (!$conn) {
@@ -83,9 +81,14 @@
                 </div>
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                    
-                        <i class="fas fa-fw fa-user dropbtn" style="font-size: 21px"></i> &nbsp;
+                        <img src="<?php if(($_SESSION['IMAGE_PROFILE']) != '') 
+                        {echo DOCBASE.ADMIN_FOLDER.'/includes/'.trim($_SESSION['IMAGE_PROFILE'], " ");} 
+                        else{ echo DOCBASE.ADMIN_FOLDER.'/includes/uploads/images.png'; }?>" id="img-icon" width="28" height="28" style="border-radius:50%; margin-top: -9px"> &nbsp;
                     </a>
-                    <div class="dropdown-menu user-account" aria-labelledby="dropdownMenuLink">                                              
+                    <div class="dropdown-menu user-account" aria-labelledby="dropdownMenuLink">    
+                        <img src="<?php if(($_SESSION['IMAGE_PROFILE']) != '') 
+                        {echo DOCBASE.ADMIN_FOLDER.'/includes/'.trim($_SESSION['IMAGE_PROFILE'], " ");} 
+                        else{ echo DOCBASE.ADMIN_FOLDER.'/includes/uploads/images.png'; }?>" id="image-user" width="40" height="40">                                          
                         <a href="#" class="dropdown-item" ><?php echo "number:"."<b>".$_SESSION['user']['id']."</b>"; ?></a><br>
                         <a href="#" class="dropdown-item" ><?php echo "name:"."<b>".$_SESSION['user']['login']."</b> (".$_SESSION['user']['type'].")"; ?></a><br>
                         <a href="#" class="dropdown-item" ><?php echo "email:"."<b>".$_SESSION['user']['email']."</b>"; ?></a><br>                                             
@@ -95,9 +98,6 @@
                             
                             if ($db->last_row_count() > 0) {
                               while($row_user = $result1->fetch()) {
-                                // echo "<a href='#' class='dropdown-item' > address: " .$row_user['address']. "</a><br>";
-                                // echo "<a href='#' class='dropdown-item' > city: " .$row_user['city']. "</a><br>";
-                                // echo "<a href='#' class='dropdown-item' > country: " .$row_user['country']. "</a><br>";
                                 echo "<a href='#' class='dropdown-item' > phone: " .$row_user['phone']. "</a><br>";
                               }
                             } else {
@@ -157,93 +157,147 @@
 </nav>
 <div class="form-popup" id="myForm">
     <div class="form-container">
-    <?php    
-        $user_info = "SELECT *FROM pm_user WHERE id=$user_id";
-        $user_account = $db->query($user_info);
-        
-        if ($db->last_row_count() > 0) {
-            while($row_user = $user_account->fetch()) {
-    ?>
-            <input type="hidden" id="user-id" value="<?php echo $row_user['id']?>">
-             <h1>Login</h1>
-            <div class="row">
-                <label class="col-sm-3" for="email" style="margin-top: 7px"><?php echo ($texts['FIRSTNAME'] . ":"); ?></label>
-                <div class="col-sm-9 text-left">
-                    <input id="user-firstname" type="text" placeholder="Enter Firstname" name="create_name" value="<?php echo $row_user['firstname']?>">
+        <div class="preview" style="text-align: center">            
+            <img src="<?php if(($_SESSION['IMAGE_PROFILE']) != '') 
+                {echo DOCBASE.ADMIN_FOLDER.'/includes/'.trim($_SESSION['IMAGE_PROFILE'], " ");} 
+                else{ echo DOCBASE.ADMIN_FOLDER.'/includes/uploads/images.png'; }?>" id="img" width="120" height="120">
+            <label for="file">
+                <i class="fas fa-edit" style="font-size: 21px"></i>
+            </label>
+        </div>       
+        <?php    
+            $user_info = "SELECT *FROM pm_user WHERE id=$user_id";
+            $user_account = $db->query($user_info);
+            
+            if ($db->last_row_count() > 0) {
+                while($row_user = $user_account->fetch()) {
+        ?>
+        <input type="hidden" id="user-id" value="<?php echo $row_user['id']?>">            
+        <div class="row" style="padding-top: 10px">
+            <label class="col-sm-3" for="email" style="margin-top: 7px"><?php echo ($texts['FIRSTNAME'] . ":"); ?></label>
+            <div class="col-sm-9 text-left">
+                <input id="user-firstname" type="text" placeholder="Enter Firstname" name="create_name" value="<?php echo $row_user['firstname']?>">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-3" for="email" style="margin-top: 7px"><?php echo ($texts['LASTNAME'] . ":"); ?></label>
+            <div class="col-sm-9 text-left">
+                <input id="user-lastname" type="text" placeholder="Enter Lastname" name="create_name" value="<?php echo $row_user['lastname']?>">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-3" for="email" style="margin-top: 7px"><?php echo ($texts['LOGIN'] . ":"); ?></label>
+            <div class="col-sm-9 text-left">
+                <input id="user-login" type="text" placeholder="Enter Login" name="create_email" value="<?php echo $row_user['login']?>">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['EMAIL'] . ":"); ?></label>
+            <div class="col-sm-9 text-left">
+                <input id="user-email" type="text" placeholder="Enter Email" name="" value="<?php echo $row_user['email']?>">
+            </div>
+        </div>
+        <div class="row">
+            <label for="psw" class="col-sm-3" style="margin-top: 7px"><?php echo ($texts['PASSWORD'] . ":"); ?></label>
+            <div class="col-sm-9 text-left">
+                <input id="user-password" type="password" placeholder="Enter Password" name="password">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['COUNTRY'] . ":"); ?></label>
+            <div class="col-sm-9 text-left">
+                <input id="user-country" type="text" placeholder="Enter Country" name="" value="<?php echo $row_user['country']?>">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['ADDRESS'] . ":"); ?></label>
+            <div class="col-sm-9 text-left">
+                <input id="user-address" type="text" placeholder="Enter Address" name="" value="<?php echo $row_user['address']?>">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['POSTCODE'] . ":"); ?></label>
+            <div class="col-sm-9 text-left">
+                <input id="user-postcode" type="text" placeholder="Enter PostCode" name="" value="<?php echo $row_user['postcode']?>">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['CITY'] . ":"); ?></label>
+            <div class="col-sm-9 text-left">
+                <input id="user-city" type="text" placeholder="Enter City" name="" value="<?php echo $row_user['city']?>">
+            </div>
+        </div>            
+        <div class="row">
+            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['MOBILE'] . ":"); ?></label>
+            <div class="col-sm-9 text-left">
+                <input id="user-mobile" type="text" placeholder="Enter MobileNumber" name="" value="<?php echo $row_user['mobile']?>">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['PHONE'] . ":"); ?></label>
+            <div class="col-sm-9 text-left">
+                <input id="user-phone" type="text" placeholder="Enter PhoneNumber" name="" value="<?php echo $row_user['phone']?>">
+            </div>
+        </div>                  
+        <?php
+            }
+            } else {
+                echo "0 results";
+            }
+        ?>
+
+        <form method="post" action="" enctype="multipart/form-data" id="myform">        
+            <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+                <div class="col-sm-9">
+                    <input type="file" id="file" name="file" />
+                </div>
+                <div class="col-sm-3">
+                    <input type="button" class="button" value="Upload" id="but_upload">
                 </div>
             </div>
-            <div class="row">
-                <label class="col-sm-3" for="email" style="margin-top: 7px"><?php echo ($texts['LASTNAME'] . ":"); ?></label>
-                <div class="col-sm-9 text-left">
-                    <input id="user-lastname" type="text" placeholder="Enter Lastname" name="create_name" value="<?php echo $row_user['lastname']?>">
-                </div>
+        </form>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <button type="submit" class="btn" id="btn-save" style="border-radius: 5px;">save</button>
             </div>
-            <div class="row">
-                <label class="col-sm-3" for="email" style="margin-top: 7px"><?php echo ($texts['LOGIN'] . ":"); ?></label>
-                <div class="col-sm-9 text-left">
-                    <input id="user-login" type="text" placeholder="Enter Login" name="create_email" value="<?php echo $row_user['login']?>">
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['EMAIL'] . ":"); ?></label>
-                <div class="col-sm-9 text-left">
-                    <input id="user-email" type="text" placeholder="Enter Email" name="" value="<?php echo $row_user['email']?>">
-                </div>
-            </div>
-            <div class="row">
-                <label for="psw" class="col-sm-3" style="margin-top: 7px"><?php echo ($texts['PASSWORD'] . ":"); ?></label>
-                <div class="col-sm-9 text-left">
-                    <input id="user-password" type="password" placeholder="Enter Password" name="password">
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['COUNTRY'] . ":"); ?></label>
-                <div class="col-sm-9 text-left">
-                    <input id="user-country" type="text" placeholder="Enter Country" name="" value="<?php echo $row_user['country']?>">
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['ADDRESS'] . ":"); ?></label>
-                <div class="col-sm-9 text-left">
-                    <input id="user-address" type="text" placeholder="Enter Address" name="" value="<?php echo $row_user['address']?>">
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['POSTCODE'] . ":"); ?></label>
-                <div class="col-sm-9 text-left">
-                    <input id="user-postcode" type="text" placeholder="Enter PostCode" name="" value="<?php echo $row_user['postcode']?>">
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['CITY'] . ":"); ?></label>
-                <div class="col-sm-9 text-left">
-                    <input id="user-city" type="text" placeholder="Enter City" name="" value="<?php echo $row_user['city']?>">
-                </div>
-            </div>            
-            <div class="row">
-                <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['MOBILE'] . ":"); ?></label>
-                <div class="col-sm-9 text-left">
-                    <input id="user-mobile" type="text" placeholder="Enter MobileNumber" name="" value="<?php echo $row_user['mobile']?>">
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['PHONE'] . ":"); ?></label>
-                <div class="col-sm-9 text-left">
-                    <input id="user-phone" type="text" placeholder="Enter PhoneNumber" name="" value="<?php echo $row_user['phone']?>">
-                </div>
-            </div>       
-    <?php
-        }
-        } else {
-            echo "0 results";
-        }
-    ?>
-    <button type="submit" class="btn" id="btn-save">save</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-  </div>
+            <div class="col-sm-6">
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </div>  
+        </div>
+    </div>
 </div>
 
 <script>
+    $(document).ready(function(){
+
+        $("#file").change(function(){
+
+            var fd = new FormData();
+            var files = $('#file')[0].files[0];
+            fd.append('file',files);
+
+            $.ajax({
+                url: '<?php echo DOCBASE.ADMIN_FOLDER; ?>/includes/upload.php',
+                type: 'post',
+                data: fd,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    if(response != 0){                        
+                        var res = response.split(" ").join("");
+                        $("#img").attr("src", '<?php echo DOCBASE.ADMIN_FOLDER;?>' + '/includes/' + res);
+                        $("#img-icon").attr("src", '<?php echo DOCBASE.ADMIN_FOLDER;?>' + '/includes/' + res);
+                        $("#image-user").attr("src", '<?php echo DOCBASE.ADMIN_FOLDER;?>' + '/includes/' + res); 
+                        $(".preview img").show(); // Display image element
+                    }else{
+                        alert('file not uploaded');
+                    }
+                },
+            });
+        });
+    });
+
     $("#notification").click(function(){
         
         console.log($("#notification_number").text());
@@ -257,28 +311,13 @@
             cache : false,
             data : "flag=" + flag,
             success: function(response)
-            {
-            alert(response);
+            {        
+                
             }
-        });
-        
+        });        
     });
 
-<<<<<<< HEAD
     $("#btn-save").click(function(){
-=======
-            $.ajax
-            ({
-                url: '<?php echo DOCBASE.ADMIN_FOLDER; ?>/includes/select.php',
-                type : "POST",
-                cache : false,
-                data : 0,
-                success: function(response)
-                {
-                    // alert(response);
-                }
-            });
->>>>>>> 649e4251bc8708a1fe44d0416f467c8c30bb7d9d
         
         console.log($("#user-id").val());
         var user_id = $("#user-id").val();
@@ -293,21 +332,21 @@
         var city = $("#user-city").val();
         var mobile = $("#user-mobile").val();
         var phone = $("#user-phone").val();
-        var flag = 1;
         $.ajax
-        ({
+        (
+            {
             url: '<?php echo DOCBASE.ADMIN_FOLDER; ?>/includes/update.php',
             type : "POST",
             cache : false,
             data : "firstname=" + firstname+ "&lastname=" + lastname+ "&login=" + login+ "&email=" + email+ "&password=" + password+ "&country=" + country+ "&address=" + address+ "&postcode=" + postcode+ "&city=" + city+ "&mobile=" + mobile+ "&phone=" + phone+ "&user_id=" + user_id,
             success: function(response)
-            {
-            alert(response);
+                {
+                // alert(response);
+                    location.reload();
+                }
             }
-        });    
-    });
-
-        
+        );    
+    });   
 
     function openForm() {
         document.getElementById("myForm").style.display = "block";
@@ -315,17 +354,6 @@
 
     function closeForm() {
         document.getElementById("myForm").style.display = "none";
-    }
-    document.getElementById("lang_spa").onclick = function() {
-        <?php $config_tmp['admin_lang_file'] = "es.ini";?>
-        console.log("<?php echo $config_tmp['admin_lang_file'];?>");
-        location.reload();
-    };
-
-    document.getElementById("lang_eng").onclick = function() {
-        <?php $config_tmp['admin_lang_file'] = "en.ini";?>
-        console.log("<?php echo $config_tmp['admin_lang_file'];?>");
-        location.reload();
-    };
+    }    
    
 </script>

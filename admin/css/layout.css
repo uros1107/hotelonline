@@ -267,6 +267,18 @@ li.dropdown > ul {
     color: white;
 }
 
+.fa-edit {
+    height: 20px;
+    line-height: 13px;
+    position: absolute;
+    text-align: center;
+    width: 17px;
+    right: 155px;
+    top: 110px;
+    padding-top: 0px;
+    padding-left: 2px;
+}
+
 #info-header {
     padding: 15px;
     margin-right: 15px;
@@ -814,14 +826,15 @@ a.btn-slide.right{
     right: 15px;
     border: 3px solid #f1f1f1;
     z-index: 20;
-    transform: translate(-0%, -25%);
+    transform: translate(-130%, -10%);
   }
   
   /* Add styles to the form container */
   .form-container {
-    max-width: 300px;
+    max-width: 500px;
     padding: 10px;
     background-color: white;
+    width: 450px;
   }
   
   /* Full-width input fields */
@@ -849,4 +862,9 @@ a.btn-slide.right{
     width: 100%;
     margin-bottom:10px;
     opacity: 0.8;
+  }
+
+  .cancel {
+      background-color: red !important;
+      border-radius: 5px;
   }

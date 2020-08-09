@@ -21,11 +21,11 @@
     $user_id = $_POST['user_id'];
      
     // $user_update = "UPDATE pm_user SET password=$user_pw WHERE id=1";
-    $user_update = "UPDATE pm_user SET firstname='$firstname', lastname='$lastname', login='$login', email='$email', password='$userpassword', country='$country', address='$address', postcode='$postcode', city='$city', mobile='$mobile', phone='$phone' WHERE id='$user_id'";
+    $user_update = "UPDATE pm_user SET firstname='$firstname', lastname='$lastname', login='$login', email='$email', pass='$userpassword', country='$country', address='$address', postcode='$postcode', city='$city', mobile='$mobile', phone='$phone' WHERE id='$user_id'";
      
 
     if (mysqli_query($conn4, $user_update)) {
-        echo "Record updated successfully";
+        echo "success";
     } else {
     echo "Error updating record: " . mysqli_error($conn4);
     }
