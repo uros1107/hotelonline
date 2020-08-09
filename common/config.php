@@ -1,4 +1,5 @@
 <?php
+// if(!is_session_started()) session_start();
 define('SITE_TITLE', 'hotel management');
 define('TIME_ZONE', 'Europe/London');
 define('DATE_FORMAT', '%F');

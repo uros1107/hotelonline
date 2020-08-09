@@ -164,6 +164,10 @@ textarea.form-control {
 }
 .pop-menu:hover {
     background-color:skyblue;
+    cursor:pointer;
+}
+.pop-menu-back {
+    background-color:skyblue;
 }
 .top-nav {
     padding: 0 15px;
