@@ -35,15 +35,15 @@
                     <div class="dropdown-menu language" aria-labelledby="dropdownMenuLink">
                         <table style="width:100%">
                             <tr class="pop-menu">
-                                <td style="height:unset;text-align:left;padding-left:5px">
+                <td style="height:unset;text-align:left;padding-left:5px;<?php if($_SESSION['CHANGE_LANG']=='es.ini'){?>background-color:#37aede;<?php }?>" id="lang_spa">
                                     <img src="./images/Mexico.png">
-                                    <a class="dropdown-item" id="lang_spa" href="#">Spanish</a>
+                                    <a class="dropdown-item">Spanish</a>
                                 </td>
                             </tr>
                             <tr class="pop-menu">
-                                <td style="height:unset;text-align:left;padding-left:5px">
+                                <td style="height:unset;text-align:left;padding-left:5px;<?php if($_SESSION['CHANGE_LANG']=='en.ini'){?>background-color:#37aede;<?php }?>" id="lang_eng">
                                     <img src="./images/US.png" style="width:16px">
-                                    <a class="dropdown-item" id="lang_eng" href="#">English(US)</a>
+                                    <a class="dropdown-item">English(US)</a>
                                 </td>
                             </tr>
                         </table>                        
@@ -165,34 +165,34 @@
 </nav>
 
 <script>
-    $("#notification").click(function(){
-        
-            console.log($("#notification_number").text());
-            $("#notification_number").text(0);
+    $("#lang_spa").on("click", function() {
+        $.ajax({
+            url: '<?php echo DOCBASE.ADMIN_FOLDER;?>/includes/change_lang.php',
+            type:'post',
+            data: {
+                lang : 'es.ini',
+                check_id : 1
+            },
+            success: function(res){
+               location.reload();
+            }
+        });
+        // location.reload();
+    });
 
-            $.ajax
-            ({
-                url: '<?php echo DOCBASE.ADMIN_FOLDER; ?>/includes/select.php',
-                type : "POST",
-                cache : false,
-                data : 0,
-                success: function(response)
-                {
-                    // alert(response);
-                }
-            });
-        
-    });    
-    document.getElementById("lang_spa").onclick = function() {
-        <?php $config_tmp['admin_lang_file'] = "es.ini";?>
-        console.log("<?php echo $config_tmp['admin_lang_file'];?>");
-        location.reload();
-    };
-
-    document.getElementById("lang_eng").onclick = function() {
-        <?php $config_tmp['admin_lang_file'] = "en.ini";?>
-        console.log("<?php echo $config_tmp['admin_lang_file'];?>");
-        location.reload();
-    };
+    $("#lang_eng").on("click", function() {
+        $.ajax({
+            url: '<?php echo DOCBASE.ADMIN_FOLDER;?>/includes/change_lang.php',
+            type:'post',
+            data: {
+                lang : 'en.ini',
+                check_id : 2
+            },
+            success: function(res){
+               location.reload();
+            }
+        });
+        // location.reload();
+    });
    
 </script>

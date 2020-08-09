@@ -9,7 +9,7 @@ if(!defined('ADMIN')) define('ADMIN', false);
 
 require_once('setenv.php');
 
-$default_lang = 2;
+$default_lang = 4;
 $default_lang_tag = 'en';
 $lang_alias = '';
 $locale = 'en_GB';
@@ -21,8 +21,9 @@ $db = false;
 
 if(is_file(SYSBASE.'common/config.php')){
     require_once(SYSBASE.'common/config.php');
-    
-    $admin_lang_file = SYSBASE.ADMIN_FOLDER.'/includes/langs/'.ADMIN_LANG_FILE;
+
+    //change language using $_SESSION['CHANGE_LANG]
+    $admin_lang_file = SYSBASE.ADMIN_FOLDER.'/includes/langs/'.$_SESSION['CHANGE_LANG'];
     
     if(ADMIN && is_file($admin_lang_file)){
         $texts = @parse_ini_file($admin_lang_file);
