@@ -1,19 +1,20 @@
 <?php
-    // $servername = "localhost";
-    // $username = "root";
-    // $password = "";
-    // $dbname = "hotel-manager";
-    // $conn3 = mysqli_connect($servername, $username, $password, $dbname);
+    require_once("../../common/config.php");
+    
+    $conn3 = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     // // Check connection
-    // if (!$conn3) {
-    //     die("Connection failed: " . mysqli_connect_error());
-    // }    
-    $sql4 = $db->query('UPDATE pm_notification SET status=0 WHERE status=1');
-    // if (mysqli_query($conn3, $sql4)) {
-    //     echo "Record updated successfully";
-    //   } else {
-    //     echo "Error updating record: " . mysqli_error($conn);
-    //   }
-    // mysqli_close($conn3);
-    return "success";    
+    if (!$conn3) {
+        die("Connection failed: " . mysqli_connect_error());
+    }   
+    
+    if($_POST['flag'] == 0) {
+      $notification = "UPDATE pm_notification SET status=0 WHERE status=1";
+    }    
+    
+    if (mysqli_query($conn3, $notification)) {
+        echo "Record updated successfully";
+    } else {
+      echo "Error updating record: " . mysqli_error($conn3);
+    }
+    mysqli_close($conn3);  
 ?>
