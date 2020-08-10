@@ -23,7 +23,12 @@ if(is_file(SYSBASE.'common/config.php')){
     require_once(SYSBASE.'common/config.php');
 
     //change language using $_SESSION['CHANGE_LANG]
-    $admin_lang_file = SYSBASE.ADMIN_FOLDER.'/includes/langs/'.$_SESSION['CHANGE_LANG'];
+    if(isset($_SESSION['CHANGE_LANG'])){
+        $admin_lang_file = SYSBASE.ADMIN_FOLDER.'/includes/langs/'.$_SESSION['CHANGE_LANG'];
+    }
+    else{
+        $admin_lang_file = SYSBASE.ADMIN_FOLDER.'/includes/langs/'.'en.ini';
+    }
     
     if(ADMIN && is_file($admin_lang_file)){
         $texts = @parse_ini_file($admin_lang_file);
