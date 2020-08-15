@@ -172,7 +172,7 @@ function add_item($db, $table, $result_insert, $id_lang)
     global $texts;
     global $files;
     $lang = '';
-    
+        
     if(MULTILINGUAL){
         $result_lang = $db->query('SELECT title FROM pm_lang WHERE id = '.$id_lang);
         if($result_lang !== false && $db->last_row_count() > 0) $lang = $result_lang->fetchColumn(0).' - ';

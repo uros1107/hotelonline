@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module title="[GUEST]" name="guest" multi="0" library="0" dashboard="0" icon="user-friends" ranking="0" home="0" main="0" validation="0" dates="0" release="0" index="4.0">
+	<!-- resizing
+	[0] 1 single image
+	[1] 1x big, 1x medium, 1x small -->
+	<medias max="0" resizing="1">
+		<big maxw="1920" maxh="1440"/>
+		<medium maxw="600" maxh="600"/>
+		<small maxw="400" maxh="400"/>
+	</medias>
+	<list order="id">
+		<!-- <col label="[USER]" name="id_user" type="none"/> -->
+		<col label="[GUEST]" name="guest" type="none"/>
+		<col label="[BIRTHDATE]" name="birthdate" type="none"/>
+		<col label="[EMAIL1]" name="email1" type="none"/>
+		<col label="[PHONE1]" name="phone1" type="none"/>
+		<col label="[SOCIAL1]" name="social1" type="none"/>
+		<col label="[OCCUPATION]" name="occupation" type="none"/>
+		<col label="[LANG]" name="lang" type="none"/>
+		<col label="[AFFILIATIONDATE]" name="affiliationdate" type="none"/>
+		<col label="[MARRIAGEDATE]" name="marriagedate" type="none"/>
+	</list>
+	<form>
+		<field multi="0" label="[USER]" name="id_user" type="select" required="1" unique="0" validation="none">
+			<options table="pm_user" fieldlabel="login" fieldvalue="id" order="login"></options>
+		</field>
+		<field multi="0" label="[STATUS]" name="id_status" type="select" required="1" unique="0" validation="none">
+			<options table="pm_status" fieldlabel="table_status" fieldvalue="id" order="table_status"></options>
+		</field>
+		<field multi="0" label="[ADDRESS]" name="id_address" type="select" required="1" unique="1" validation="none">
+			<options table="pm_address" fieldlabel="street" fieldvalue="id" order="street"></options>		
+		</field>
+		<field multi="0" label="[GENDER]" name="id_gender" type="select" required="1" unique="0" validation="none">
+			<options table="pm_gender" fieldlabel="gender" fieldvalue="id" order="gender"></options>
+		</field>
+		<field multi="0" label="[GUEST]" name="guest" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[BIRTHDATE]" name="birthdate" type="date" required="1" unique="0" validation="none">
+		</field>
+		<field multi="0" label="[EMAIL1]" name="email1" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[EMAIL2]" name="email2" type="text" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[EMAIL3]" name="email3" type="text" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[PHONE1]" name="phone1" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[PHONE2]" name="phone2" type="text" required="0" unique="0" validation="none">
+		</field>
+		<field multi="0" label="[PHONE3]" name="phone3" type="text" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[SOCIAL1]" name="social1" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[SOCIAL2]" name="social2" type="text" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[SOCIAL3]" name="social3" type="text" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[OCCUPATION]" name="occupation" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[AFFILIATIONDATE]" name="affiliationdate" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[VIA]" name="id_via" type="select" required="0" unique="0" validation="none">
+			<options table="pm_via" fieldlabel="via" fieldvalue="id" order="via"></options>		
+		</field>
+		<field multi="0" label="[CIVILSTATUS]" name="id_civilstatus" type="select" required="0" unique="0" validation="none">
+			<options table="pm_civilstatus" fieldlabel="civilstatus" fieldvalue="id" order="civilstatus"></options>		
+		</field>
+		<field multi="0" label="[CURRENCY]" name="id_currency" type="select" required="0" unique="0" validation="none">
+			<options table="pm_currency" fieldlabel="code" fieldvalue="id" order="code"></options>		
+		</field>
+		<field multi="0" label="[LANG]" name="lang" type="select" required="0" unique="0" validation="none">
+			<options table="pm_lang" fieldlabel="title" fieldvalue="id" order="title"></options>		
+		</field>
+		<field multi="0" label="[MARRIAGEDATE]" name="marriagedate" type="text" required="0" unique="0" validation="none"/>     
+	</form>
+	
+    <roles>
+        <user type="administrator" permissions="all"/>
+        <user type="manager" permissions="no_access"/>
+        <user type="editor" permissions="no_access"/>
+    </roles>
+</module>

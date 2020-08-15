@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module title="[COMPANY]" name="company" multi="0" library="0" dashboard="0" icon="building" ranking="0" home="0" main="0" validation="0" dates="0" release="0" index="4.5">
+	<!-- resizing
+	[0] 1 single image
+	[1] 1x big, 1x medium, 1x small -->
+	<medias max="0" resizing="1">
+		<big maxw="1920" maxh="1440"/>
+		<medium maxw="600" maxh="600"/>
+		<small maxw="400" maxh="400"/>
+	</medias>
+	<list order="id">
+		<!-- <col label="[USER]" name="id_user" type="none"/> -->
+		<col label="[COMPANY]" name="company" type="none"/>
+		<col label="[TAXID]" name="taxid" type="none"/>
+		<col label="[PHONE1]" name="phone1" type="none"/>
+		<col label="[PHONE2]" name="phone2" type="none"/>
+		<col label="[PHONE3]" name="phone3" type="none"/>
+		<col label="[EMAIL1]" name="email1" type="none"/>
+		<col label="[EMAIL2]" name="email2" type="none"/>
+		<col label="[EMAIL3]" name="email3" type="none"/>
+		<col label="[SOOCIAL1]" name="soocial1" type="none"/>
+		<col label="[SOOCIAL2]" name="soocial2" type="none"/>
+		<col label="[SOOCIAL3]" name="soocial3" type="none"/>
+	</list>
+	<form>
+		<field multi="0" label="[COMPANY]" name="company" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[TAXID]" name="taxid" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[PHONE1]" name="phone1" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[PHONE2]" name="phone2" type="text" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[PHONE3]" name="phone3" type="text" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[EMAIL1]" name="email1" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[EMAIL2]" name="email2" type="text" required="0" unique="0" validation="none"/>		
+		<field multi="0" label="[EMAIL3]" name="email3" type="text" required="0" unique="0" validation="none"/>		
+		<field multi="0" label="[SOOCIAL1]" name="soocial1" type="text" required="1" unique="0" validation="none"/>		
+		<field multi="0" label="[SOOCIAL2]" name="soocial2" type="text" required="0" unique="0" validation="none"/>		
+		<field multi="0" label="[SOOCIAL3]" name="soocial3" type="text" required="0" unique="0" validation="none"/>		
+		<field multi="0" label="[STATUS]" name="id_status" type="select" required="1" unique="0" validation="none">
+			<options table="pm_status" fieldlabel="table_status" fieldvalue="id" order="table_status"></options>
+		</field>			
+	</form>
+    <roles>
+        <user type="administrator" permissions="all"/>
+        <user type="manager" permissions="no_access"/>
+        <user type="editor" permissions="no_access"/>
+    </roles>
+</module>

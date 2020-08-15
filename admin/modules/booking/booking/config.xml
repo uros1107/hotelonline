@@ -88,6 +88,13 @@
                 <option value="razorpay">Razorpay</option>
 			</options>
 		</field>
+        <field multi="0" label="[CURRENCY]" name="id_currency" type="select" required="1" unique="0" validation="none">
+            <options table="pm_currency" fieldlabel="code" fieldvalue="id" order="code"></options>
+        </field>
+        <field multi="0" label="[NOCONFIRM]" name="wp_noconfirm" type="text" required="0" unique="0" validation="none"/>
+        <field multi="0" label="[AGENCY_CODE]" name="wp_agency_code" type="text" required="0" unique="0" validation="none"/>
+        <field multi="0" label="[REQUESTER]" name="wp_requester" type="text" required="0" unique="0" validation="none"/>
+        <field multi="0" label="[CREATION_DATE]" name="wp_creation_date" type="text" required="0" unique="0" validation="none"/>
         <table label="[ROOMS]" name="booking_room" fieldref="id_booking">
             <field multi="0" label="[HOTEL]" name="id_hotel" type="select" required="1" unique="0" validation="none">
                 <options table="pm_hotel" fieldlabel="id | title" fieldvalue="id" order="title"></options>
@@ -146,7 +153,7 @@
             </field>
 			<field multi="0" label="[TRANSACTION_ID]" name="trans" type="text" required="0" unique="0" validation="none"/>
             <field multi="0" label="[AMOUNT]" name="amount" type="text" required="1" unique="0" validation="numeric" comment="{currency} ([INCL_TAX])"/>
-        </table>
+        </table>        
 	</form>
     <roles>
         <user type="administrator" permissions="all"/>

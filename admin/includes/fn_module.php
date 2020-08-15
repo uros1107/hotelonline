@@ -116,3 +116,5 @@ if(isset($indexes[$dirname])){
     
     $permissions = $module->getPermissions($_SESSION['user']['type']);
 }
+
+

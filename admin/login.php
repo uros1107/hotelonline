@@ -30,7 +30,7 @@ if($db !== false && isset($_POST['login'])){
             $_SESSION['user']['email'] = $row['email'];
             $_SESSION['user']['type'] = $row['type'];
             $_SESSION['user']['add_date'] = $row['add_date'];
-            $_SESSION['IMAGE_PROFILE'] = $row['name'];            
+            $_SESSION['user']['phone'] = $row['phone'];                                   
             header('Location: index.php');
             exit();
         }else
@@ -101,13 +101,25 @@ if($db !== false && isset($_POST['reset'])){
                 $row = $result_user->fetch();
                 $url = getUrl();
                 $new_pass = genPass(6);
-                $mailContent = '
-                <p>Hi,<br>You requested a new password from <a href=\"'.$url.'\" target=\"_blank\">'.$url.'</a><br>
-                Bellow, your new connection informations<br>
-                Username: '.$row['login'].'<br>
-                Password: <b>'.$new_pass.'</b><br>
-                You can modify this random password in the settings via the manager.</p>';
-                if(sendMail($email, $row['name'], 'Your new password', $mailContent) !== false)
+                $header  = "From:".SENDER_NAME."\r\n"; 
+                $header .= "Content-type: text/html\r\n";
+                // $header ="From:".SENDER_NAME;
+                $username = $row['login'];
+                $result_email = $db->query('SELECT * FROM pm_email_content WHERE id=5');
+                if($result_email !==false && $db->last_row_count() > 0) {
+                    $row_email = $result_email->fetch();
+                    $mailContent = $row_email['content'].
+                    'Username: '.$username.'<br>'.
+                    'Password: '.$new_pass;
+                    $subject = $row_email['subject'];
+                }
+                // $mailContent = 'Hi,You requested a new password from ';
+                // $mailContent .= $url;
+                // $mailContent .= 'Bellow, your new connection informations
+                // Username: '.$username.'
+                // Password: '.$new_pass.'
+                // You can modify this random password in the settings via the manager.';     
+                if(mail($email, $subject, $mailContent, $header) !== false)
                     $db->query('UPDATE pm_user SET pass = '.$db->quote(md5($new_pass)).' WHERE id = '.$row['id']);
             }
             $_SESSION['msg_success'][] = 'A new password has been sent to your e-mail.';
@@ -221,7 +233,7 @@ $csrf_token = get_token('login'); ?>
                         </div>
                         <div class="row mb10">
                             <label class="col-sm-3 text-left" style="margin-top: 6px">
-                                <?php echo ($texts['FIRSTNAME'] . ":"); ?>
+                                <?php echo ($texts['USERNAME'] . ":"); ?>
                             </label>
                             <div class="col-sm-9 text-left">
                                 <input class="form-control" type="text" value="" name="user">
@@ -248,10 +260,11 @@ $csrf_token = get_token('login'); ?>
                         </div>
                         <!-- <div class="row mb15"><a class="open-signup-form" href="#"><?php echo $texts['I_SIGN_UP'];?></a></div> -->
                         <div class="row mb10">                            
-                            <div class="col-sm-12 text-right" style="padding-right: 25px">
-                                <a href="login.php?action=create" >Create new account?</a>
-                                <button class="btn btn-default" type="submit" value="" name="login" style="width: 50%"><i class="fas fa-fw fa-power-off"></i><?php echo $texts['LOGIN']; ?></button>
-                                
+                            <div class="col-sm-6 text-left" style="padding-right: 25px">
+                                <a href="login.php?action=create" class="signup">Sign up</a>
+                            </div> 
+                            <div class="col-sm-6 text-right" style="padding-right: 25px">
+                                <button class="btn btn-default" type="submit" value="" name="login" style="width: 100%"><i class="fas fa-fw fa-power-off"></i><?php echo $texts['LOGIN']; ?></button>                                
                             </div>
                         </div>
                         <div class="row" style="padding: 10px 10px 3px 10px;">

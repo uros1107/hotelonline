@@ -21,7 +21,7 @@
                 
                 if ($db->last_row_count() > 0) {
                     while($row_user = $result1->fetch()) {
-                    echo "<div class='row mb10'><i class='fas fa-fw fa-phone' style='font-size: 21px'></i><b>: " .$row_user['phone']. "</b></div>";
+                    echo "<div class='row mb10'><i class='fas fa-fw fa-phone' style='font-size: 21px'></i><b>: " .$row_user['phone']. "</b></div>";                    
                     }
                 } else {
                     echo "0 results";
@@ -85,27 +85,29 @@
                         {echo DOCBASE.ADMIN_FOLDER.'/includes/'.trim($_SESSION['IMAGE_PROFILE'], " ");} 
                         else{ echo DOCBASE.ADMIN_FOLDER.'/includes/uploads/images.png'; }?>" id="img-icon" width="28" height="28" style="border-radius:50%; margin-top: -9px"> &nbsp;
                     </a>
-                    <div class="dropdown-menu user-account" aria-labelledby="dropdownMenuLink">    
-                        <img src="<?php if(($_SESSION['IMAGE_PROFILE']) != '') 
-                        {echo DOCBASE.ADMIN_FOLDER.'/includes/'.trim($_SESSION['IMAGE_PROFILE'], " ");} 
-                        else{ echo DOCBASE.ADMIN_FOLDER.'/includes/uploads/images.png'; }?>" id="image-user" width="40" height="40">                                          
-                        <a href="#" class="dropdown-item" ><?php echo "number:"."<b>".$_SESSION['user']['id']."</b>"; ?></a><br>
-                        <a href="#" class="dropdown-item" ><?php echo "name:"."<b>".$_SESSION['user']['login']."</b> (".$_SESSION['user']['type'].")"; ?></a><br>
-                        <a href="#" class="dropdown-item" ><?php echo "email:"."<b>".$_SESSION['user']['email']."</b>"; ?></a><br>                                             
-                        <?php    
-                            $sql1 = "SELECT address, city, country, phone FROM pm_user WHERE id=$user_id";
-                            $result1 = $db->query($sql1);
-                            
-                            if ($db->last_row_count() > 0) {
-                              while($row_user = $result1->fetch()) {
-                                echo "<a href='#' class='dropdown-item' > phone: " .$row_user['phone']. "</a><br>";
-                              }
-                            } else {
-                              echo "0 results";
-                            }
-                        ?>     
-                        <a class="dropdown-item" onclick="openForm()" style="margin-top:10px; border-bottom: 1px solid; font-weight: bolder; font-size: 15px;">My account&nbsp;</a><br>                                                               
-                        <a href="<?php echo DOCBASE.ADMIN_FOLDER; ?>/login.php?action=logout" class="dropdown-item"><i class="fas fa-fw fa-power-off dropbtn" style="margin-top: 10px"></i> <?php echo $texts['LOG_OUT']; ?></a>                                                
+                    <div class="dropdown-menu user-account" aria-labelledby="dropdownMenuLink"> 
+                        <div class="row">
+                            <div class="col-sm-3" style="margin-top: 5px; padding: 8px">
+                                <img src="<?php if(($_SESSION['IMAGE_PROFILE']) != '') 
+                                {echo DOCBASE.ADMIN_FOLDER.'/includes/'.trim($_SESSION['IMAGE_PROFILE'], " ");} 
+                                else{ echo DOCBASE.ADMIN_FOLDER.'/includes/uploads/images.png'; }?>" id="image-user" width="60" height="60">  
+                            </div>  
+                            <div class="col-sm-9" style="padding: 3px">                                      
+                                <!-- <a href="#" class="dropdown-item" ><?php echo "number:"."<b>".$_SESSION['user']['id']."</b>"; ?></a><br> -->
+                                <a href="#" class="dropdown-item user-account-item" ><?php echo $texts['LOGIN'].":"."<b>".$_SESSION['user']['login']."</b>"; ?></a><br>
+                                <a href="#" class="dropdown-item user-account-item" ><?php echo $texts['EMAIL'].":"."<b>".$_SESSION['user']['email']."</b>"; ?></a><br> 
+                                <a href="#" class="dropdown-item user-account-item" ><?php echo $texts['PHONE'].":"."<b>".$_SESSION['user']['phone']."</b>"; ?></a><br> 
+                                <a href="#" class="dropdown-item user-account-item" ><?php echo $texts['TYPE'].":"."<b>".$_SESSION['user']['type']."</b>"; ?></a><br> 
+                            </div>  
+                        </div> 
+                        <div class="row">
+                            <div class="col-sm-6" style="margin-top: 5px; text-align: center;">   
+                                <a class="dropdown-item" onclick="openForm()" style="margin-top:10px; border-bottom: 1px solid; font-weight: bolder; font-size: 15px; color: white">My account&nbsp;</a><br>                                                               
+                            </div>
+                            <div class="col-sm-6" style="text-align: center">
+                                <a href="<?php echo DOCBASE.ADMIN_FOLDER; ?>/login.php?action=logout" class="dropdown-item" style="color: white"><i class="fas fa-fw fa-power-off dropbtn" style="margin-top: 10px"></i> <?php echo $texts['LOG_OUT']; ?></a>                                                
+                            </div>
+                        </div>
                     </div> 
                 </div>                                                
             </div>            
@@ -140,8 +142,9 @@
                         if(!in_array("no_access", $rights) && !empty($rights))
                             echo "<li><a href=\"".$link."\"".$classname."><i class=\"fas fa-fw fa-".$icon."\"></i> ".$title."</a></li>";
                     } ?>
+                    <!-- <li><a><i class="fas fa-user-friends"></i><b>Guest</b></a></li> -->
                 </ul>
-            </li>
+            </li>            
             <li><a href="<?php echo DOCBASE; ?>"><i class="fas fa-fw fa-eye"></i> <?php echo $texts['PREVIEW']; ?></a></li>
             <?php
             if($_SESSION['user']['type'] == "administrator"){ ?>
@@ -157,12 +160,13 @@
 </nav>
 <div class="form-popup" id="myForm">
     <div class="form-container">
-        <div class="preview" style="text-align: center">            
-            <img src="<?php if(($_SESSION['IMAGE_PROFILE']) != '') 
+        <h3 class="user-profile-header" style="font-weight: bold; font-size: 22px">My User Profile</h3>
+        <div class="preview" style="text-align: center"> 
+            <label for="file">           
+                <img src="<?php if(($_SESSION['IMAGE_PROFILE']) != '') 
                 {echo DOCBASE.ADMIN_FOLDER.'/includes/'.trim($_SESSION['IMAGE_PROFILE'], " ");} 
-                else{ echo DOCBASE.ADMIN_FOLDER.'/includes/uploads/images.png'; }?>" id="img" width="120" height="120">
-            <label for="file">
-                <i class="fas fa-edit" style="font-size: 21px"></i>
+                else{ echo DOCBASE.ADMIN_FOLDER.'/includes/uploads/images.png'; }?>" id="img" width="120" height="120">            
+                <i class="fas fa-edit image-upload" style="font-size: 21px"></i>
             </label>
         </div>       
         <?php    
@@ -174,67 +178,67 @@
         ?>
         <input type="hidden" id="user-id" value="<?php echo $row_user['id']?>">            
         <div class="row" style="padding-top: 10px">
-            <label class="col-sm-3" for="email" style="margin-top: 7px"><?php echo ($texts['FIRSTNAME'] . ":"); ?></label>
+            <label class="col-sm-3 user-profile-label" for="email" style="margin-top: 7px"><?php echo ($texts['FIRSTNAME'] . ":"); ?></label>
             <div class="col-sm-9 text-left">
                 <input id="user-firstname" type="text" placeholder="Enter Firstname" name="create_name" value="<?php echo $row_user['firstname']?>">
             </div>
         </div>
         <div class="row">
-            <label class="col-sm-3" for="email" style="margin-top: 7px"><?php echo ($texts['LASTNAME'] . ":"); ?></label>
+            <label class="col-sm-3 user-profile-label" for="email" style="margin-top: 7px"><?php echo ($texts['LASTNAME'] . ":"); ?></label>
             <div class="col-sm-9 text-left">
                 <input id="user-lastname" type="text" placeholder="Enter Lastname" name="create_name" value="<?php echo $row_user['lastname']?>">
             </div>
         </div>
         <div class="row">
-            <label class="col-sm-3" for="email" style="margin-top: 7px"><?php echo ($texts['LOGIN'] . ":"); ?></label>
+            <label class="col-sm-3 user-profile-label" for="email" style="margin-top: 7px"><?php echo ($texts['LOGIN'] . ":"); ?></label>
             <div class="col-sm-9 text-left">
                 <input id="user-login" type="text" placeholder="Enter Login" name="create_email" value="<?php echo $row_user['login']?>">
             </div>
         </div>
         <div class="row">
-            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['EMAIL'] . ":"); ?></label>
+            <label class="col-sm-3 user-profile-label" for="" style="margin-top: 7px"><?php echo ($texts['EMAIL'] . ":"); ?></label>
             <div class="col-sm-9 text-left">
                 <input id="user-email" type="text" placeholder="Enter Email" name="" value="<?php echo $row_user['email']?>">
             </div>
         </div>
         <div class="row">
-            <label for="psw" class="col-sm-3" style="margin-top: 7px"><?php echo ($texts['PASSWORD'] . ":"); ?></label>
+            <label for="psw" class="col-sm-3 user-profile-label" style="margin-top: 7px"><?php echo ($texts['PASSWORD'] . ":"); ?></label>
             <div class="col-sm-9 text-left">
                 <input id="user-password" type="password" placeholder="Enter Password" name="password">
             </div>
         </div>
         <div class="row">
-            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['COUNTRY'] . ":"); ?></label>
+            <label class="col-sm-3 user-profile-label" for="" style="margin-top: 7px"><?php echo ($texts['COUNTRY'] . ":"); ?></label>
             <div class="col-sm-9 text-left">
                 <input id="user-country" type="text" placeholder="Enter Country" name="" value="<?php echo $row_user['country']?>">
             </div>
         </div>
         <div class="row">
-            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['ADDRESS'] . ":"); ?></label>
+            <label class="col-sm-3 user-profile-label" for="" style="margin-top: 7px"><?php echo ($texts['ADDRESS'] . ":"); ?></label>
             <div class="col-sm-9 text-left">
                 <input id="user-address" type="text" placeholder="Enter Address" name="" value="<?php echo $row_user['address']?>">
             </div>
         </div>
         <div class="row">
-            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['POSTCODE'] . ":"); ?></label>
+            <label class="col-sm-3 user-profile-label" for="" style="margin-top: 7px"><?php echo ($texts['POSTCODE'] . ":"); ?></label>
             <div class="col-sm-9 text-left">
                 <input id="user-postcode" type="text" placeholder="Enter PostCode" name="" value="<?php echo $row_user['postcode']?>">
             </div>
         </div>
         <div class="row">
-            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['CITY'] . ":"); ?></label>
+            <label class="col-sm-3 user-profile-label" for="" style="margin-top: 7px"><?php echo ($texts['CITY'] . ":"); ?></label>
             <div class="col-sm-9 text-left">
                 <input id="user-city" type="text" placeholder="Enter City" name="" value="<?php echo $row_user['city']?>">
             </div>
         </div>            
         <div class="row">
-            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['MOBILE'] . ":"); ?></label>
+            <label class="col-sm-3 user-profile-label" for="" style="margin-top: 7px"><?php echo ($texts['MOBILE'] . ":"); ?></label>
             <div class="col-sm-9 text-left">
                 <input id="user-mobile" type="text" placeholder="Enter MobileNumber" name="" value="<?php echo $row_user['mobile']?>">
             </div>
         </div>
         <div class="row">
-            <label class="col-sm-3" for="" style="margin-top: 7px"><?php echo ($texts['PHONE'] . ":"); ?></label>
+            <label class="col-sm-3 user-profile-label" for="" style="margin-top: 7px"><?php echo ($texts['PHONE'] . ":"); ?></label>
             <div class="col-sm-9 text-left">
                 <input id="user-phone" type="text" placeholder="Enter PhoneNumber" name="" value="<?php echo $row_user['phone']?>">
             </div>
@@ -246,7 +250,7 @@
             }
         ?>
 
-        <form method="post" action="" enctype="multipart/form-data">        
+        <form method="post" action="" enctype="multipart/form-data" style="display: none;">        
             <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
                 <div class="col-sm-9">
                     <input type="file" id="file" name="file" />
@@ -257,7 +261,7 @@
             </div>
         </form>
 
-        <div class="row">
+        <div class="row" style="padding-top: 5px">
             <div class="col-sm-6">
                 <button type="submit" class="btn" id="btn-save" style="border-radius: 5px;">save</button>
             </div>
@@ -318,7 +322,7 @@
 
         });
     });
-    
+
     $("#lang_eng").on("click", function() {
         $.ajax({
             url: '<?php echo DOCBASE.ADMIN_FOLDER;?>/includes/change_lang.php',
@@ -384,8 +388,9 @@
             data : "firstname=" + firstname+ "&lastname=" + lastname+ "&login=" + login+ "&email=" + email+ "&password=" + password+ "&country=" + country+ "&address=" + address+ "&postcode=" + postcode+ "&city=" + city+ "&mobile=" + mobile+ "&phone=" + phone+ "&user_id=" + user_id,
             success: function(response)
                 {
-                // alert(response);
                     location.reload();
+                    <?php $_SESSION['msg_success'][] = 'A new password has been sent to your e-mail.';?>
+
                 }
             }
         );    

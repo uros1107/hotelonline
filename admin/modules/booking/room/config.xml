@@ -54,6 +54,13 @@
         </field>
 		<field multi="0" label="[NUMBER_OF_ROOMS]" name="stock" type="text" required="1" unique="0" validation="numeric"/>
 		<field multi="0" label="[PRICE_PER_NIGHT]" name="price" type="text" required="1" unique="0" validation="numeric" comment="{currency} (default price)"/>
+		<field multi="0" label="[STATUS]" name="id_status" type="select" required="1" unique="0" validation="none">
+			<options table="pm_status" fieldlabel="table_status" fieldvalue="id" order="table_status"></options>
+		</field>
+		<field multi="0" label="[LOCK_NUMBER]" name="wp_lock_number" type="text" required="1" unique="0" validation="numeric"/>
+		<field multi="0" label="[QTY_ROOM]" name="wp_qty_room" type="text" required="1" unique="0" validation="numeric"/>
+		<field multi="0" label="[AVERAGE_RATE]" name="wp_average_rate" type="text" required="1" unique="0" validation="numeric"/>
+		<field multi="0" label="[NIGHTS]" name="wp_nights" type="text" required="1" unique="0" validation="numeric"/>
         <table label="[CLOSING_DATES]" name="room_closing" fieldref="id_room" multi="0">
 			<field multi="0" label="[START_DATE]" name="from_date" type="date" required="1" unique="0" validation="none"/>
 			<field multi="0" label="[END_DATE]" name="to_date" type="date" required="1" unique="0" validation="none"/>

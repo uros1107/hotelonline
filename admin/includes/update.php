@@ -22,13 +22,34 @@
      
     // $user_update = "UPDATE pm_user SET password=$user_pw WHERE id=1";
     $user_update = "UPDATE pm_user SET firstname='$firstname', lastname='$lastname', login='$login', email='$email', pass='$userpassword', country='$country', address='$address', postcode='$postcode', city='$city', mobile='$mobile', phone='$phone' WHERE id='$user_id'";
-     
-
     if (mysqli_query($conn4, $user_update)) {
-        echo "success";
+    // echo "success";
     } else {
-    echo "Error updating record: " . mysqli_error($conn4);
+    // echo "Error updating record: " . mysqli_error($conn4);
     }
     
+
+    $header  = "From:".SENDER_NAME."\r\n"; 
+    $header .= "Content-type: text/html\r\n";
+    // $header ="From:".SENDER_NAME;
+    $username = $login;
+    var_export($username);
+    $result2 = "SELECT * FROM pm_email_content WHERE id=5";
+    $result_email = $conn4->query($result2);
+    if($result_email !==false && $result_email->num_rows > 0) {
+        $row_email = $result_email->fetch_assoc();
+        $mailContent = $row_email['content'].
+        'Username: '.$username.'<br>'.
+        'Password: '.$userpassword;
+        $subject = $row_email['subject'];
+    }
+    if(mail($email, $subject, $mailContent, $header) !== false)
+    $_SESSION['msg_success'][] = 'A new password has been sent to your e-mail.'; 
+    if (mysqli_query($conn4, $result2)) {
+    // echo "success";
+    } else {
+    // echo "Error updating record: " . mysqli_error($conn4);
+    }
+
     mysqli_close($conn4);  
 ?>

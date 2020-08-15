@@ -304,8 +304,7 @@ if($db !== false){
                     
                     if($action == 'add' && (in_array('add', $permissions) || in_array('all', $permissions))){
                             
-                        $result_insert = db_prepareInsert($db, 'pm_'.MODULE, $data);
-                        $sub = strval(MODULE);
+                        $result_insert = db_prepareInsert($db, 'pm_'.MODULE, $data);                        
 
                         $sql2 = $db->query("INSERT INTO pm_notification (subject, message, status) VALUES ('MODULE', 'Your room has been booked without guarantee', 1)");
                         

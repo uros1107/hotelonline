@@ -206,6 +206,19 @@ textarea.form-control {
 .user-account {
     text-align: left;
     padding: 15px;
+    width: 300px;
+}
+
+.user-account-item {
+    font-size: 12px;
+}
+
+#users_tmp {
+    width: auto !important;
+}
+
+#users {
+    width: auto !important;
 }
 
 .top-nav>.open>.dropdown-menu {
@@ -271,7 +284,7 @@ li.dropdown > ul {
     color: white;
 }
 
-.fa-edit {
+.image-upload {
     height: 20px;
     line-height: 13px;
     position: absolute;
@@ -281,6 +294,15 @@ li.dropdown > ul {
     top: 110px;
     padding-top: 0px;
     padding-left: 2px;
+}
+
+.user-profile-header {
+    margin-top: 5px !important;
+    color: white;
+}
+
+.user-profile-label {
+    color: white;
 }
 
 #info-header {
@@ -349,6 +371,22 @@ ul.alert-dropdown {
     left: inherit !important;
 }
 
+.signup {
+    display: block;
+    width: 100%;    
+    background: #4E9CAF;
+    padding: 5px;
+    text-align: center;    
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+    height: 37px;
+    margin-left: 5px;
+}
+
+.signup:hover {
+    color: white;
+}
 
 
 @media(max-width:768px) {
@@ -828,7 +866,7 @@ a.btn-slide.right{
     position: fixed;
     bottom: 0;
     right: 15px;
-    border: 3px solid #f1f1f1;
+    border: 3px solid #0e1940bd;
     z-index: 20;
     transform: translate(-130%, -10%);
   }
@@ -837,7 +875,7 @@ a.btn-slide.right{
   .form-container {
     max-width: 500px;
     padding: 10px;
-    background-color: white;
+    background-color: #0e1940bd;
     width: 450px;
   }
   
