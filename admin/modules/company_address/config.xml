@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module title="[COMPANY_ADDRESS]" name="company_address" multi="0" library="0" dashboard="1" icon="address-book" ranking="0" home="0" main="0" validation="0" dates="0" release="0" index="4.6">
+	<!-- resizing
+	[0] 1 single image
+	[1] 1x big, 1x medium, 1x small -->
+	<medias max="0" resizing="1">
+		<big maxw="1920" maxh="1440"/>
+		<medium maxw="600" maxh="600"/>
+		<small maxw="400" maxh="400"/>
+	</medias>
+	<list order="id">				
+		<col label="[COMPANY]" name="id_company" table="pm_company" fieldvalue="company" fieldref="id"/>
+		<col label="[ADDRESS]" name="id_address" table="pm_address" fieldvalue="address" fieldref="id"/>
+	</list>
+	<form>
+		<field multi="0" label="[COMPANY]" name="id_company" type="select" required="1" unique="0" validation="none">
+			<options table="pm_company" fieldlabel="company" fieldvalue="id" order="company"></options>
+		</field>
+		<field multi="0" label="[ADDRESS]" name="id_address" type="select" required="1" unique="0" validation="none">
+			<options table="pm_address" fieldlabel="address" fieldvalue="id" order="address"></options>
+		</field>
+	</form>
+	
+    <roles>
+        <user type="administrator" permissions="all"/>
+        <user type="manager" permissions="no_access"/>
+        <user type="editor" permissions="no_access"/>
+    </roles>
+</module>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module title="[GUEST_FILE]" name="guest_file" multi="0" library="0" dashboard="1" icon="file-pdf" ranking="0" home="0" main="0" validation="0" dates="0" release="0" index="4.3">
+	<!-- resizing
+	[0] 1 single image
+	[1] 1x big, 1x medium, 1x small -->
+	<medias max="0" resizing="1">
+		<big maxw="1920" maxh="1440"/>
+		<medium maxw="600" maxh="600"/>
+		<small maxw="400" maxh="400"/>
+	</medias>
+	<list order="id">
+		<!-- <col label="[USER]" name="id_user" type="none"/> -->
+		<col label="[GUEST]" name="id_guest" table="pm_guest" fieldvalue="guest" fieldref="id"/>
+		<col label="[FILE]" name="file" type="none"/>
+		<col label="[NAME]" name="name" type="none"/>
+		<col label="[DUEDATE]" name="duedate" type="date"/>
+		<col label="[DOCUMENTID]" name="documentid" type="none"/>
+		<col label="[DOCUMENT_TYPE]" name="id_doc_type" table="pm_document_type" fieldvalue="document_type" fieldref="id"/>		
+	</list>
+	<form>
+		<field multi="0" label="[GUEST]" name="id_guest" type="select" required="1" unique="0" validation="none">
+			<options table="pm_guest" fieldlabel="guest" fieldvalue="id" order="guest"></options>
+		</field>				
+		<field multi="0" label="[FILE]" name="file" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[NAME]" name="name" type="text" required="1" unique="0" validation="none"/>
+		<field multi="0" label="[DUEDATE]" name="duedate" type="date" required="1" unique="0" validation="none">
+		</field>
+		<field multi="0" label="[DOCUMENTID]" name="documentid" type="text" required="1" unique="0" validation="none"/>	    
+		<field multi="0" label="[DOCUMENT_TYPE]" name="id_doc_type" type="select" required="1" unique="0" validation="none">
+			<options table="pm_document_type" fieldlabel="document_type" fieldvalue="id" order="document_type"></options>
+		</field>
+		<field multi="0" label="[STATUS]" name="id_status" type="select" required="1" unique="0" validation="none">
+			<options table="pm_status" fieldlabel="table_status" fieldvalue="id" order="table_status"></options>
+		</field>
+	</form>
+	
+    <roles>
+        <user type="administrator" permissions="all"/>
+        <user type="manager" permissions="no_access"/>
+        <user type="editor" permissions="no_access"/>
+    </roles>
+</module>

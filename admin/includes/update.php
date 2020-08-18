@@ -33,7 +33,6 @@
     $header .= "Content-type: text/html\r\n";
     // $header ="From:".SENDER_NAME;
     $username = $login;
-    var_export($username);
     $result2 = "SELECT * FROM pm_email_content WHERE id=5";
     $result_email = $conn4->query($result2);
     if($result_email !==false && $result_email->num_rows > 0) {

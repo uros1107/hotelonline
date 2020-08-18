@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module title="[HOTEL_USER]" name="hotel_user" multi="1" library="0" dashboard="1" icon="h-square" ranking="0" home="0" main="0" validation="0" dates="0" release="0" index="5.0">
+	<!-- resizing
+	[0] 1 single image
+	[1] 1x big, 1x medium, 1x small -->
+	<medias max="20" resizing="1">
+		<big maxw="1400" maxh="800"/>
+		<medium maxw="600" maxh="600"/>
+		<small maxw="300" maxh="300"/>
+	</medias>
+	<list order="rank">
+        <filter label="[HOTEL]" name="id_hotel">
+            <options table="pm_hotel" fieldlabel="title" fieldvalue="id" order="title"></options>
+        </filter>
+		<filter label="[USER]" name="id_user">
+            <options table="pm_hotel" fieldlabel="login" fieldvalue="id" order="login"></options>
+        </filter>
+		<!-- <col label="[TITLE]" name="title" type="none"/>
+		<col label="[SUBTITLE]" name="subtitle" type="none"/> -->
+		<!-- <col label="[CLASS]" name="class" type="none"/> -->
+		<col label="[HOTEL]" name="id_hotel" table="pm_hotel" fieldvalue="title" fieldref="id"/>
+		<col label="[USER]" name="id_user" table="pm_user" fieldvalue="login" fieldref="id"/>
+	</list>
+	<form>
+        <field multi="0" label="[HOTEL]" name="id_hotel" type="multiselect" required="0" unique="0" validation="none">
+            <options table="pm_hotel" fieldlabel="title" fieldvalue="id" order="title"></options>
+        </field>
+        <field multi="0" label="[USER]" name="id_user" type="multiselect" required="0" unique="0" validation="none">
+            <options table="pm_user" fieldlabel="login" fieldvalue="id" order="login"></options>
+        </field>   
+	</form>
+    <roles>
+        <user type="administrator" permissions="all"/>
+        <user type="manager" permissions="all"/>
+        <user type="editor" permissions="no_access"/>
+        <user type="hotel" permissions="add,edit,upload"/>
+    </roles>
+</module>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module title="[QUIZ]" name="quiz" multi="0" library="0" dashboard="1" icon="question-circle" ranking="0" home="0" main="0" validation="0" dates="0" release="0" index="6.0">
+	<!-- resizing
+	[0] 1 single image
+	[1] 1x big, 1x medium, 1x small -->
+	<medias max="0" resizing="1">
+		<big maxw="1920" maxh="1440"/>
+		<medium maxw="600" maxh="600"/>
+		<small maxw="400" maxh="400"/>
+	</medias>
+	<list order="id">
+		<col label="[LANG]" name="lang" table="pm_lang" fieldvalue="title" fieldref="id"/>
+		<col label="[HOTEL]" name="id_hotel" table="pm_hotel" fieldvalue="title" fieldref="id"/>
+		<col label="[QUIZ]" name="quiz" type="none"/>						
+		<col label="[QUIZ_TYPE]" name="id_type_quiz" table="pm_quiz_type" fieldvalue="typeofquiz" fieldref="id"/>
+	</list>
+	<form>
+		<field multi="0" label="[LANG]" name="lang" type="select" required="1" unique="0" validation="none">
+			<options table="pm_lang" fieldlabel="title" fieldvalue="id" order="title"></options>
+		</field>
+		<field multi="0" label="[HOTEL]" name="id_hotel" type="select" required="1" unique="0" validation="none">
+			<options table="pm_hotel" fieldlabel="title" fieldvalue="id" order="title"></options>
+		</field>								
+		<field multi="1" label="[QUIZ]" name="quiz" type="textarea" editor="1" required="0" unique="0" validation="none"/>
+		<field multi="0" label="[QUIZ_TYPE]" name="id_type_quiz" type="select" required="1" unique="0" validation="none">
+			<options table="pm_quiz_type" fieldlabel="typeofquiz" fieldvalue="id" order="typeofquiz"></options>
+		</field>
+		<field multi="0" label="[STATUS]" name="id_status" type="select" required="1" unique="0" validation="none">
+			<options table="pm_status" fieldlabel="table_status" fieldvalue="id" order="table_status"></options>
+		</field>
+	</form>
+	
+    <roles>
+        <user type="administrator" permissions="all"/>
+        <user type="manager" permissions="no_access"/>
+        <user type="editor" permissions="no_access"/>
+    </roles>
+</module>
